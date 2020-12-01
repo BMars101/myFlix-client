@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { MovieCard } from '../movie-card/movie-card';
+import { MovieCard } from './movie-card/movie-card';
+import { MovieView } from './movie-view/movie-view';
 
 
 export class MainView extends React.Component {
@@ -10,9 +11,40 @@ export class MainView extends React.Component {
     super();
 
     //Initialize the state to an empty object so we can destructure it later
-    this.state = {};
+    this.state = {
+      movies: null,
+      selectedMovie: null
+    };
     //access later with const { /something /} = this.state;
   }
+
+  componentDidMount() {
+    /*.....*/
+  }
+
+  onMovieClick(movie) {
+    this.setState({
+      selectedMovie: movie
+    });
+  }
+
+  render() {
+    const { movies, selectedMovie } = this.state;
+
+    if (!movies) return <div className="main-view" />;
+
+    return (
+      <div className="main-view">
+        {selectedMovie
+          ? <MovieView movie={selectedMovie} />
+          : movies.map(movie => (
+            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+          ))
+        }
+      </div>
+    );
+  }
+
 
   //This overrides the render() method of the superclass 
   render() {
