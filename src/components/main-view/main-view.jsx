@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { MovieCard } from './movie-card/movie-card';
+import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
 
@@ -15,11 +15,17 @@ export class MainView extends React.Component {
       movies: null,
       selectedMovie: null
     };
-    //access later with const { /something /} = this.state;
   }
 
   componentDidMount() {
-    /*.....*/
+    axios.get("https://movie-api11.herokuapp.com/movies").then(response => {
+      this.setState({
+        movies: response.data
+      });
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   onMovieClick(movie) {
@@ -44,37 +50,27 @@ export class MainView extends React.Component {
       </div>
     );
   }
-
-
-  //This overrides the render() method of the superclass 
-  render() {
-    return (
-      <div className="main-view"></div>
-    );
-  }
-  componentDidMount() {
-    axios.get("https://movie-api11.herokuapp.com/movies").then(response => {
-      this.setState({
-        movies: response.data
-      });
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  render() {
-    const { movies } = this.state;
-
-    if (!movies) return <div className="main-view" />;
-
-    return (
-      <div className="main-view">
-        { movies.map(movie => (
-          <MovieCard key={movie._id} movie={movie} />
-        ))}
-      </div>
-    );
-  }
 }
+  //This overrides the render() method of the superclass
+/*render() {
+  return (
+    <div className="main-view"></div>
+  );
+}
+
+
+render() {
+  const { movies } = this.state;
+
+  if (!movies) return <div className="main-view" />;
+
+  return (
+    <div className="main-view">
+      { movies.map(movie => (
+        <MovieCard key={movie._id} movie={movie.Title} />
+      ))}
+    </div>
+  );
+}*/
+
 

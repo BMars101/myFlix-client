@@ -31556,7 +31556,7 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/main-view/movie-card/movie-card.jsx":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31705,6 +31705,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "value"
       }, movie.Director.Name)));
     }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {}
   }]);
 
   return MovieView;
@@ -31723,7 +31726,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _movieCard = require("./movie-card/movie-card");
+var _movieCard = require("../movie-card/movie-card");
 
 var _movieView = require("../movie-view/movie-view");
 
@@ -31768,15 +31771,22 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       movies: null,
       selectedMovie: null
-    }; //access later with const { /something /} = this.state;
-
+    };
     return _this;
   }
 
   _createClass(MainView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      /*.....*/
+      var _this2 = this;
+
+      _axios.default.get("https://movie-api11.herokuapp.com/movies").then(function (response) {
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }, {
     key: "onMovieClick",
@@ -31788,7 +31798,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -31805,55 +31815,40 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
-            return _this2.onMovieClick(movie);
+            return _this3.onMovieClick(movie);
           }
-        });
-      }));
-    } //This overrides the render() method of the superclass 
-
-  }, {
-    key: "render",
-    value: function render() {
-      return _react.default.createElement("div", {
-        className: "main-view"
-      });
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this3 = this;
-
-      _axios.default.get("https://movie-api11.herokuapp.com/movies").then(function (response) {
-        _this3.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var movies = this.state.movies;
-      if (!movies) return _react.default.createElement("div", {
-        className: "main-view"
-      });
-      return _react.default.createElement("div", {
-        className: "main-view"
-      }, movies.map(function (movie) {
-        return _react.default.createElement(_movieCard.MovieCard, {
-          key: movie._id,
-          movie: movie
         });
       }));
     }
   }]);
 
   return MainView;
-}(_react.default.Component);
+}(_react.default.Component); //This overrides the render() method of the superclass
+
+/*render() {
+  return (
+    <div className="main-view"></div>
+  );
+}
+
+
+render() {
+  const { movies } = this.state;
+
+  if (!movies) return <div className="main-view" />;
+
+  return (
+    <div className="main-view">
+      { movies.map(movie => (
+        <MovieCard key={movie._id} movie={movie.Title} />
+      ))}
+    </div>
+  );
+}*/
+
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","./movie-card/movie-card":"components/main-view/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -32013,7 +32008,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51954" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59244" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

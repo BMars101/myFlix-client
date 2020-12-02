@@ -34,4 +34,7 @@ export class MovieView extends React.Component {
       </div>
     );
   }
+  componentDidMount() {
+
+  }
 }
