@@ -51,26 +51,5 @@ export class MainView extends React.Component {
     );
   }
 }
-  //This overrides the render() method of the superclass
-/*render() {
-  return (
-    <div className="main-view"></div>
-  );
-}
-
-
-render() {
-  const { movies } = this.state;
-
-  if (!movies) return <div className="main-view" />;
-
-  return (
-    <div className="main-view">
-      { movies.map(movie => (
-        <MovieCard key={movie._id} movie={movie.Title} />
-      ))}
-    </div>
-  );
-}*/
 
 

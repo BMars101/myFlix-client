@@ -31703,11 +31703,8 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Director: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name)));
+      }, movie.Director.Name)), _react.default.createElement("div", null, _react.default.createElement("button", null, "Back")));
     }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {}
   }]);
 
   return MovieView;
@@ -31823,29 +31820,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return MainView;
-}(_react.default.Component); //This overrides the render() method of the superclass
-
-/*render() {
-  return (
-    <div className="main-view"></div>
-  );
-}
-
-
-render() {
-  const { movies } = this.state;
-
-  if (!movies) return <div className="main-view" />;
-
-  return (
-    <div className="main-view">
-      { movies.map(movie => (
-        <MovieCard key={movie._id} movie={movie.Title} />
-      ))}
-    </div>
-  );
-}*/
-
+}(_react.default.Component);
 
 exports.MainView = MainView;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
