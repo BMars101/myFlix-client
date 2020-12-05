@@ -4,8 +4,10 @@ export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(username, password);
+    props.onLoggedIn(username);
   };
 
   return (
