@@ -4,6 +4,8 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
 
 export class MainView extends React.Component {
   constructor() {
@@ -71,4 +73,8 @@ export class MainView extends React.Component {
   }
 }
 
-
+MainView.propTypes = {
+  movies: PropTypes.shape({
+    _id: PropTypes.number
+  })
+}

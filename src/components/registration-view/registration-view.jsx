@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
@@ -13,23 +15,25 @@ export function RegistrationView(props) {
   };
 
   return (
-    <form>
-      <label>
-        Email: <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-      </label>
-      <label>
-        Username: <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <lable>
-        Password: <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </lable>
-      <label>
-        Re-enter Password: <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <label>
-        Birthday: <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} />
-      </label>
-      <button type="button" onClick={handleSubmit}>Submit</button>
-    </form>
+    <Form>
+      <Form.Group>
+        <Form.Label>
+          Email: <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+        </Form.Label>
+        <Form.Label>
+          Username: <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+        </Form.Label>
+        <Form.Label>
+          Password: <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+        </Form.Label>
+        <Form.Label>
+          Re-enter Password: <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+        </Form.Label>
+        <Form.Label>
+          Birthday: <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} />
+        </Form.Label>
+      </Form.Group>
+      <Button variant="primary" type="button" onClick={handleSubmit}>Submit</Button>
+    </Form>
   );
 }
