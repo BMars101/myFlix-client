@@ -75,6 +75,8 @@ export class MainView extends React.Component {
 
 MainView.propTypes = {
   movies: PropTypes.shape({
-    _id: PropTypes.number
-  })
+    _id: PropTypes.number.isRequired,
+  }).isRequired,
+  onLoggedIn: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 }
