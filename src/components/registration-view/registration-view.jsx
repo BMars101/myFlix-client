@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
@@ -44,4 +45,13 @@ export function RegistrationView(props) {
       <Button variant="primary" type="button" onClick={handleSubmit}>Submit</Button>
     </Form>
   );
+}
+
+RegistrationView.proptypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  email: PropTypes.any.isRequired,
+  birthday: PropTypes.any.isRequired,
+  onLoggedIn: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 }
