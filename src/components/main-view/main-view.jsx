@@ -6,6 +6,9 @@ import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './main-view.scss'
 
 export class MainView extends React.Component {
   constructor() {
@@ -61,22 +64,21 @@ export class MainView extends React.Component {
 
     return (
       <div className="main-view">
-        {selectedMovie
-          ? <MovieView movie={selectedMovie}
-            onClick={() => this.setInitialState()} />
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-          ))
-        }
+        <Container className="main-view_container">
+          <Row>
+            <Col className="main-view_col">
+              {selectedMovie
+                ? <MovieView movie={selectedMovie}
+                  onClick={() => this.setInitialState()} />
+                : movies.map(movie => (
+                  <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+                ))
+              }
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
 }
 
-MainView.propTypes = {
-  movies: PropTypes.shape({
-    _id: PropTypes.number.isRequired,
-  }).isRequired,
-  onLoggedIn: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
-}

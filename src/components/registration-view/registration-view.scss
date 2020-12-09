@@ -1,9 +1,12 @@
-.register_form{
+@import "~bootstrap/scss/bootstrap";
+
+.form_container{
   align-items: center;
   justify-content: center;
-  display: block;
+  display: flex;
   box-sizing: border-box;
   padding-top: 20px;
+  font: bold;
 
 }
 
@@ -14,5 +17,13 @@
 
 .form-item{
   align-items: center;
-  
+  display: block;
+  width: 250px;
+}
+
+.input-box{
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
 }

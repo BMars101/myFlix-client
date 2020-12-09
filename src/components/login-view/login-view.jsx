@@ -25,8 +25,5 @@ export function LoginView(props) {
 }
 
 LoginView.proptypes = {
-  username: propTypes.string.isRequired,
-  password: propTypes.string.isRequired,
-  handleSubmit: propTypes.func.isRequired,
-  onClick: propTypes.func.isRequired
+  onLoggedIn: PropTypes.func.isRequired
 }

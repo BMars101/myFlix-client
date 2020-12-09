@@ -15,7 +15,7 @@ export class MovieCard extends React.Component {
       <Container className="movie_container">
         <Row className="movie_row">
           <Col className="card_columns">
-            <Card style={{ width: '16rem' }}>
+            <Card style={{ width: '12rem' }}>
               <Card.Img variant="top" src={movie.ImagePath} />
               <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
@@ -25,7 +25,7 @@ export class MovieCard extends React.Component {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </Container >
       /* <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>*/
     );
   }
