@@ -33601,19 +33601,13 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-MovieView.proptypes = {
+MovieView.propTypes = {
   movie: _propTypes.default.shape({
-    ImagePath: _propTypes.default.any.isRequired,
     Title: _propTypes.default.string.isRequired,
     Description: _propTypes.default.string.isRequired,
-    Genre: _propTypes.default.shape({
-      Name: _propTypes.default.string.isRequired
-    }),
-    Director: _propTypes.default.shape({
-      Name: _propTypes.default.string.isRequired
-    }),
-    onClick: _propTypes.default.func.isRequired
-  })
+    ImagePath: _propTypes.default.string.isRequired
+  }).isRequired,
+  onClick: _propTypes.default.func.isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
