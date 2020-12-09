@@ -34834,7 +34834,8 @@ function RegistrationView(props) {
       return setBirthday(e.target.value);
     }
   }))), _react.default.createElement(_Button.default, {
-    variant: "primary",
+    variant: "outline-dark",
+    className: "button",
     type: "button",
     onClick: handleSubmit
   }, "Submit")))));
@@ -34983,7 +34984,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
       return _react.default.createElement("div", {
         className: "main-view"
-      }, _react.default.createElement(_Container.default, {
+      }, _react.default.createElement("header", {
+        className: "main-view_header"
+      }, "Welcome to myFlix"), _react.default.createElement(_Container.default, {
         className: "main-view_container"
       }, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
         className: "main-view_col"
@@ -35098,7 +35101,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56112" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63680" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -6,8 +6,8 @@
   display: flex;
   box-sizing: border-box;
   padding-top: 20px;
-  font: bold;
-
+  font-weight: bold;
+  min-height: 90vh;
 }
 
 .form_body {
@@ -19,6 +19,7 @@
   align-items: center;
   display: block;
   width: 250px;
+  font-size: 20px;
 }
 
 .input-box{
@@ -26,4 +27,8 @@
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
+}
+
+.button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }

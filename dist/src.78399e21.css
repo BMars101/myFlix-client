@@ -29721,7 +29721,8 @@ h3 {
   display: flex;
   box-sizing: border-box;
   padding-top: 20px;
-  font: bold;
+  font-weight: bold;
+  min-height: 90vh;
 }
 
 .form_body {
@@ -29733,6 +29734,7 @@ h3 {
   align-items: center;
   display: block;
   width: 250px;
+  font-size: 20px;
 }
 
 .input-box {
@@ -29740,6 +29742,10 @@ h3 {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
+}
+
+.button {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 @charset "UTF-8";
 /*!
@@ -39639,6 +39645,16 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.main-view_header {
+  font-weight: bold;
+  font-size: 25px;
+  background-color: #d3d3d3;
+  color: #2a2a2a;
+  padding-bottom: 30px;
+  padding-top: 15px;
+  text-align: center;
+}
+
 .main-view_container {
   display: grid;
   grid-template-rows: auto auto;
@@ -39647,7 +39663,6 @@ h3 {
 .main-view_col {
   display: flex;
   justify-content: center;
-  margin-left: 2vw;
   grid-template-columns: auto auto auto;
 }
 

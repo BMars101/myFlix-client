@@ -49,7 +49,7 @@ export function RegistrationView(props) {
                 Birthday: <input type="date" className="input_box" value={birthday} onChange={e => setBirthday(e.target.value)} />
               </Form.Label>
             </Form.Group>
-            <Button variant="primary" type="button" onClick={handleSubmit}>Submit</Button>
+            <Button variant="outline-dark" className="button" type="button" onClick={handleSubmit}>Submit</Button>
           </Form>
         </Col>
       </Row>

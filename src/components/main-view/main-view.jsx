@@ -64,6 +64,7 @@ export class MainView extends React.Component {
 
     return (
       <div className="main-view">
+        <header className="main-view_header">Welcome to myFlix</header>
         <Container className="main-view_container">
           <Row>
             <Col className="main-view_col">
