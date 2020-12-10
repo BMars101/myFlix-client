@@ -1,0 +1,34 @@
+@import "~bootstrap/scss/bootstrap";
+
+.form_container{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  box-sizing: border-box;
+  padding-top: 20px;
+  font-weight: bold;
+  min-height: 90vh;
+}
+
+.form_body {
+  padding-top: 20px;
+  margin-left: 35px;
+}
+
+.form-item{
+  align-items: center;
+  display: block;
+  width: 250px;
+  font-size: 20px;
+}
+
+.input-box{
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+}
+
+.button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}

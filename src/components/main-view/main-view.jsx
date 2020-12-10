@@ -3,6 +3,12 @@ import axios from "axios";
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from '../registration-view/registration-view';
+import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './main-view.scss'
 
 export class MainView extends React.Component {
   constructor() {
@@ -50,22 +56,30 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user } = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    //if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
+    if (!user) return <RegistrationView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     if (!movies) return <div className="main-view" />;
 
     return (
       <div className="main-view">
-        {selectedMovie
-          ? <MovieView movie={selectedMovie}
-            onClick={() => this.setInitialState()} />
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-          ))
-        }
+        <header className="main-view_header">Welcome to myFlix</header>
+        <Container className="main-view_container">
+          <Row>
+            <Col className="main-view_col">
+              {selectedMovie
+                ? <MovieView movie={selectedMovie}
+                  onClick={() => this.setInitialState()} />
+                : movies.map(movie => (
+                  <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+                ))
+              }
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
 }
-
 
