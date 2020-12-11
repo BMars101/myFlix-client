@@ -34945,21 +34945,19 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     };
     return _this;
   }
-
-  _createClass(MainView, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      _axios.default.get("https://movie-api11.herokuapp.com/movies").then(function (response) {
-        _this2.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
+  /*componentDidMount() {
+    axios.get("https://movie-api11.herokuapp.com/movies").then(response => {
+      this.setState({
+        movies: response.data
+      });
+    })
+      .catch(function (error) {
         console.log(error);
       });
-    }
-  }, {
+  }*/
+
+
+  _createClass(MainView, [{
     key: "onMovieClick",
     value: function onMovieClick(movie) {
       this.setState({
@@ -34983,6 +34981,23 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
+    }
+  }, {
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this2 = this;
+
+      _axios.default.get('https://movie-api11.herokuapp.com/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }, {
     key: "render",

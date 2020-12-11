@@ -24,7 +24,7 @@ export class MainView extends React.Component {
     };
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     axios.get("https://movie-api11.herokuapp.com/movies").then(response => {
       this.setState({
         movies: response.data
@@ -33,7 +33,7 @@ export class MainView extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
+  }*/
 
   onMovieClick(movie) {
     this.setState({
@@ -57,6 +57,22 @@ export class MainView extends React.Component {
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
   }
+
+  getMovies(token) {
+    axios.get('https://movie-api11.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        this.setState({
+          movies: response.data
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+
 
   render() {
     const { movies, selectedMovie, user } = this.state;
