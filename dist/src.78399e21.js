@@ -34945,33 +34945,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     };
     return _this;
   }
-  /*componentDidMount() {
-    axios.get("https://movie-api11.herokuapp.com/movies").then(response => {
-      this.setState({
-        movies: response.data
-      });
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }*/
-
 
   _createClass(MainView, [{
-    key: "onMovieClick",
-    value: function onMovieClick(movie) {
-      this.setState({
-        selectedMovie: movie
-      });
-    }
-  }, {
-    key: "setInitialState",
-    value: function setInitialState() {
-      this.setState({
-        selectedMovie: null
-      });
-    }
-  }, {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
       console.log(authData);
@@ -34997,6 +34972,32 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         });
       }).catch(function (error) {
         console.log(error);
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var accessToken = localStorage.getItem('token');
+
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        });
+        this.getMovies(accessToken);
+      }
+    }
+  }, {
+    key: "onMovieClick",
+    value: function onMovieClick(movie) {
+      this.setState({
+        selectedMovie: movie
+      });
+    }
+  }, {
+    key: "setInitialState",
+    value: function setInitialState() {
+      this.setState({
+        selectedMovie: null
       });
     }
   }, {
