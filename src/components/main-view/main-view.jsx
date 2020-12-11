@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
@@ -22,17 +23,6 @@ export class MainView extends React.Component {
       selectedMovie: null,
       user: null
     };
-  }
-
-  onLoggedIn(authData) {
-    console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
-    this.getMovies(authData.token);
   }
 
   getMovies(token) {
@@ -59,7 +49,18 @@ export class MainView extends React.Component {
     }
   }
 
-  onMovieClick(movie) {
+  onLoggedIn(authData) {
+    console.log(authData);
+    this.setState({
+      user: authData.user.Username
+    });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  /*onMovieClick(movie) {
     this.setState({
       selectedMovie: movie
     });
@@ -69,7 +70,7 @@ export class MainView extends React.Component {
     this.setState({
       selectedMovie: null
     });
-  }
+  }*/
 
   render() {
     const { movies, selectedMovie, user } = this.state;
@@ -81,22 +82,21 @@ export class MainView extends React.Component {
     if (!movies) return <div className="main-view" />;
 
     return (
-      <div className="main-view">
-        <header className="main-view_header">Welcome to myFlix</header>
-        <Container className="main-view_container">
-          <Row>
-            <Col className="main-view_col">
-              {selectedMovie
-                ? <MovieView movie={selectedMovie}
-                  onClick={() => this.setInitialState()} />
-                : movies.map(movie => (
-                  <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-                ))
-              }
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Router>
+        <div className="main-view">
+          <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+          <Route exact path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+          <Route exact path="/genres/:name" render={({ match }) => {
+            if (!movies) return <div className="main-view" />;
+            return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+          }} />
+          <Route exact path="/directors/:name" render={({ match }) => {
+            if (!movies) return <div className="main-view" />;
+            return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+          }} />
+
+        </div>
+      </Router>
     );
   }
 }
