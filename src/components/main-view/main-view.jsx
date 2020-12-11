@@ -47,18 +47,23 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
   render() {
     const { movies, selectedMovie, user } = this.state;
 
-    //if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    if (!user) return <RegistrationView onLoggedIn={user => this.onLoggedIn(user)} />;
+    //if (!user) return <RegistrationView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     if (!movies) return <div className="main-view" />;
 
