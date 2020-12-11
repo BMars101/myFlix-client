@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/bootstrap";
+
+.form-container {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  box-sizing: border-box;
+  padding-top: 20px;
+  font-weight: bold;
+  min-height: 90vh;
+}
