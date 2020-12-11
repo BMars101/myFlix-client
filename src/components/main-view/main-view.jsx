@@ -19,8 +19,7 @@ export class MainView extends React.Component {
 
     //Initialize the state to an empty object so we can destructure it later
     this.state = {
-      movies: null,
-      selectedMovie: null,
+      movies: [],
       user: null
     };
   }
@@ -73,9 +72,9 @@ export class MainView extends React.Component {
   }*/
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, user } = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
 
     //if (!user) return <RegistrationView onLoggedIn={user => this.onLoggedIn(user)} />;
 
@@ -84,7 +83,11 @@ export class MainView extends React.Component {
     return (
       <Router>
         <div className="main-view">
-          <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+          <Route exact path="/" render={() => {
+            if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            return movies.map(m => <MovieCard key={m._id} movie={m} />)
+          }} />
+          <Rout path="/register" render={() => <RegistrationView />} />
           <Route exact path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
           <Route exact path="/genres/:name" render={({ match }) => {
             if (!movies) return <div className="main-view" />;
