@@ -38123,7 +38123,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             });
           });
         }
-      }), _react.default.createElement(Rout, {
+      }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/register",
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, null);
@@ -38265,7 +38265,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51585" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62138" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
