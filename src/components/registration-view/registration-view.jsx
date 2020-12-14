@@ -13,7 +13,7 @@ export function RegistrationView(props) {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     axios.post('https://movie-api11.herokuapp.com/users', {
       Username: username,
@@ -61,7 +61,7 @@ export function RegistrationView(props) {
                 Birthday: <input type="date" className="input_box" value={birthday} onChange={e => setBirthday(e.target.value)} />
               </Form.Label>
             </Form.Group>
-            <Button variant="outline-dark" className="button" type="button" onClick={handleSubmit}>Submit</Button>
+            <Button variant="outline-dark" className="button" type="button" onClick={handleRegister}>Submit</Button>
           </Form>
         </Col>
       </Row>

@@ -13,22 +13,22 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
 
     return (
-      <Container className="movie_container">
-        <Row className="movie_row">
-          <Col className="card_columns">
-            <Card style={{ width: '12rem' }}>
-              <Card.Img variant="top" src={movie.ImagePath} />
-              <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
-                <Card.Text>{movie.Description}</Card.Text>
-                <Link to={`/movies/${movie._id}`}>
-                  <Button variant="link">Open</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container >
+
+      <Row className="movie_row">
+        <Col className="card_columns">
+          <Card style={{ width: '12rem' }}>
+            <Card.Img variant="top" src={movie.ImagePath} />
+            <Card.Body>
+              <Card.Title>{movie.Title}</Card.Title>
+              <Card.Text>{movie.Description}</Card.Text>
+              <Link to={`/movies/${movie._id}`}>
+                <Button variant="link">Open</Button>
+              </Link>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
       /* <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>*/
     );
   }
@@ -40,5 +40,5 @@ MovieCard.propTypes = {
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired
   }).isRequired,
-  onClick: PropTypes.func.isRequired
+  //onClick: PropTypes.func.isRequired
 };

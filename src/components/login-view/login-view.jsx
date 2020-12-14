@@ -23,8 +23,6 @@ export function LoginView(props) {
       .catch(e => {
         console.log('no such user')
       });
-    //console.log(username, password);
-    //props.onLoggedIn(username);
   };
 
   return (
@@ -33,7 +31,7 @@ export function LoginView(props) {
         <Form.Group controlId="formUsername">
           <Form.Label className="form-label">
             Username:
-      </Form.Label>
+          </Form.Label>
           <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} />
         </Form.Group>
         <Form.Group controlId="formPassword">

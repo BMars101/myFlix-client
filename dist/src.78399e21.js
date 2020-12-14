@@ -36525,9 +36525,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var movie = this.props.movie;
-      return _react.default.createElement(_Container.default, {
-        className: "movie_container"
-      }, _react.default.createElement(_Row.default, {
+      return _react.default.createElement(_Row.default, {
         className: "movie_row"
       }, _react.default.createElement(_Col.default, {
         className: "card_columns"
@@ -36542,7 +36540,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Open")))))))
+      }, "Open"))))))
       /* <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>*/
       ;
     }
@@ -36557,8 +36555,8 @@ MovieCard.propTypes = {
     Title: _propTypes.default.string.isRequired,
     Description: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }).isRequired //onClick: PropTypes.func.isRequired
+
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-card.scss":"components/movie-card/movie-card.scss"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
@@ -36575,6 +36573,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36645,7 +36645,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Genre: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Genre.Name), _react.default.createElement(Link, {
+      }, movie.Genre.Name), _react.default.createElement(_reactRouterDom.Link, {
         to: "/genres/".concat(movie.Genre.Name)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
@@ -36655,7 +36655,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Director: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name), _react.default.createElement(Link, {
+      }, movie.Director.Name), _react.default.createElement(_reactRouterDom.Link, {
         to: "/directors/".concat(movie.Director.Name)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
@@ -36679,7 +36679,7 @@ MovieView.propTypes = {
   }).isRequired,
   onClick: _propTypes.default.func.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37770,9 +37770,7 @@ function LoginView(props) {
       props.onLoggedIn(data);
     }).catch(function (e) {
       console.log('no such user');
-    }); //console.log(username, password);
-    //props.onLoggedIn(username);
-
+    });
   };
 
   return _react.default.createElement(_Container.default, {
@@ -37876,7 +37874,7 @@ function RegistrationView(props) {
       birthday = _useState8[0],
       setBirthday = _useState8[1];
 
-  var handleSubmit = function handleSubmit(e) {
+  var handleRegister = function handleRegister(e) {
     e.preventDefault();
     axios.post('https://movie-api11.herokuapp.com/users', {
       Username: username,
@@ -37948,7 +37946,7 @@ function RegistrationView(props) {
     variant: "outline-dark",
     className: "button",
     type: "button",
-    onClick: handleSubmit
+    onClick: handleRegister
   }, "Submit")))));
 }
 
@@ -38082,17 +38080,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
     }
-    /*onMovieClick(movie) {
-      this.setState({
-        selectedMovie: movie
-      });
-    }
-      setInitialState() {
-      this.setState({
-        selectedMovie: null
-      });
-    }*/
-
   }, {
     key: "render",
     value: function render() {
@@ -38105,7 +38092,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      return _react.default.createElement(_Container.default, {
+        className: "main-view_container"
+      }, _react.default.createElement(_Row.default, null, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -38149,7 +38138,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
           return _react.default.createElement(GenreView, {
             genre: movies.find(function (m) {
-              return m.Genre.Name === match.params.name;
+              return m.Genre.Name === match.params.Name;
             }).Genre
           });
         }
@@ -38163,11 +38152,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
           return _react.default.createElement(DirectorView, {
             director: movies.find(function (m) {
-              return m.Director.Name === match.params.name;
+              return m.Director.Name === match.params.Name;
             }).Director
           });
         }
-      })));
+      })))));
     }
   }]);
 
@@ -38265,7 +38254,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62138" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49828" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
