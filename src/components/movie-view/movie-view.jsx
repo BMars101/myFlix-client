@@ -12,7 +12,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, onClick } = this.props;
+    const { movie } = this.props;
 
     if (!movie) return null;
 
@@ -42,7 +42,9 @@ export class MovieView extends React.Component {
           </Link>
         </div>
         <div>
-          <Button onClick={() => onClick()}>Back</Button>
+          <Link to={'/'}>
+            <Button className="back-button">Back</Button>
+          </Link>
         </div>
       </div>
 
@@ -56,6 +58,5 @@ MovieView.propTypes = {
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+  }).isRequired
 };
