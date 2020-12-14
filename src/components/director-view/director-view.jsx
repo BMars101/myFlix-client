@@ -1,4 +1,8 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
+import { MainView } from '../main-view/main-view';
+import { MovieView } from '../movie-view/movie-view';
 
 export class DirectorView extends React.Component {
   constructor() {
@@ -27,6 +31,9 @@ export class DirectorView extends React.Component {
           <span className="label">Death: </span>
           <span className="value">{director.Director.Death}</span>
         </div>
+        <Link to={"/movie/:movieId"}>
+          <Button className="back-button">Back</Button>
+        </Link>
       </div>
     )
   }

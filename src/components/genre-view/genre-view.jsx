@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import { MainView } from '../main-view/main-view';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -30,6 +32,9 @@ export class GenreView extends React.Component {
           <span className="label">Description: </span>
           <span className="value">{genre.Genre.Description}</span>
         </div>
+        <Link to={'movie/:movieId'}>
+          <Button className="back-button">Back</Button>
+        </Link>
 
       </div>
     )

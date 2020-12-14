@@ -37967,6 +37967,10 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+var _reactRouterDom = require("react-router-dom");
+
 var _mainView = require("../main-view/main-view");
 
 var _movieView = require("../movie-view/movie-view");
@@ -38033,7 +38037,11 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Description: "), _react.default.createElement("span", {
         className: "value"
-      }, genre.Genre.Description)));
+      }, genre.Genre.Description)), _react.default.createElement(_reactRouterDom.Link, {
+        to: 'movie/:movieId'
+      }, _react.default.createElement(_Button.default, {
+        className: "back-button"
+      }, "Back")));
     }
   }]);
 
@@ -38048,7 +38056,7 @@ GenreView.propTypes = {
     Description: _propTypes.default.string
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
