@@ -7,7 +7,7 @@ import { MovieView } from '../movie-view/movie-view';
 export class DirectorView extends React.Component {
   constructor() {
     super();
-    this.state = [];
+    this.state = {};
   }
 
   render() {
@@ -38,5 +38,3 @@ export class DirectorView extends React.Component {
     )
   }
 };
-  }
-}
