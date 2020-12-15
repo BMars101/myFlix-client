@@ -3,17 +3,19 @@
 .nav-view {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
   min-height: 10vh;
   background-color: rgb(55, 67, 71);
   color: white;
 }
 
-.nav-links{
+.profile-button .logout-button{
   width: 50%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: right;
   list-style: none;
-  color: white;
+  background-color: rgb(55, 67, 71);
+  color: white !important;
 }

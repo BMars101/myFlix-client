@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
+import { RegistrationView } from '../registration-view/registration-view';
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -41,6 +43,13 @@ export function LoginView(props) {
           <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </Form.Group>
         <Button variant="outline-dark" className="button" type="button" onClick={handleSubmit}>Submit</Button>
+        <Form.Group controlId="userRegister" className="user-register">
+          <p>New users, click to register</p>
+          <Link to={`/register`}>
+            <Button variant="dark" className="register-button">Register
+          </Button>
+          </Link>
+        </Form.Group>
       </Form>
     </Container>
   );

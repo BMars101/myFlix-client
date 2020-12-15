@@ -31,8 +31,8 @@ export class DirectorView extends React.Component {
           <span className="label">Death: </span>
           <span className="value">{director.Director.Death}</span>
         </div>
-        <Link to={"/movie/:movieId"}>
-          <Button className="back-button">Back</Button>
+        <Link to={`/`}>
+          <Button variant="outline dark" className="back-button">Back</Button>
         </Link>
       </div>
     )

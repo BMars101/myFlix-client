@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
   constructor() {
@@ -43,7 +44,7 @@ export class MovieView extends React.Component {
         </div>
         <div>
           <Link to={'/'}>
-            <Button className="back-button">Back</Button>
+            <Button variant="outline-dark" className="back-button">Back</Button>
           </Link>
         </div>
       </div>
