@@ -1,7 +1,11 @@
 import React from 'react';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
+import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 export class ProfileView extends React.Component {
   constructor(props) {
@@ -20,6 +24,11 @@ export class ProfileView extends React.Component {
       birthday: '',
       favoriteMovies: [],
     };
+  }
+
+  componenetDidMount() {
+    const accessToken = localStorage.getItem("token");
+    this.getUser(accessToken);
   }
 
   getUser(token) {
@@ -74,7 +83,7 @@ export class ProfileView extends React.Component {
     axios.delete(`https://movie-api11.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}` },
 
-      Username: username.anchor,
+      Username: username,
     })
       .then(response => {
         const data = response.data;
@@ -113,7 +122,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { user } = this.props;
 
     const Username = this.state.Username;
     const Email = this.state.Email;
@@ -122,13 +131,77 @@ export class ProfileView extends React.Component {
 
     return (
       <div className="profile-view">
-        <h1>User Profile</h1>
-        <Link to={`/`}>
-          <Button variant="outline dark" className="back-button">
-            Back
-          </Button>
-        </Link>
+        <Container className="profile-container">
+          <CardGroup>
+            <Card>
+              <Card.Header as="h3">User Profile</Card.Header>
+              <Card.Body>
+                <Card.Text className="card-text">
+                  Username: {Username}
+                </Card.Text>
+                <Card.Text className="card-text">
+                  Email: {Email}
+                </Card.Text>
+                <Card.Text className="card-text">
+                  Birthday: {Birthday}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            <Card className="update-user-card">
+              <Card.Header as="h3">Update User Profile</Card.Header>
+              <Card.Body>
+                <Form.Group>
+                  <Form.Label className="form-label">Username</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    value={this.username}
+                    onChange={(e) => this.setUsername(e.target.value)} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label className="form-label">Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={this.password}
+                    onChange={(e) => this.setPassword(e.target.value)} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label className="form-label">
+                    Email Address
+                    </Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={this.email}
+                    onChange={(e) => this.setEmail(e.target.value)} />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label className="form-label">
+                    Birthday
+                    </Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="birthday"
+                    value={this.birthday}
+                    onChange={(e) => this.setBirthday(e.target.value)} />
+                </Form.Group>
+                <Button variant="dark" className="update-button" onClick={() => this.handleUpdate()}>
+                  Update
+                  </Button>
+              </Card.Body>
 
+              <Link to={`/`}>
+                <Button variant="dark" className="back-button">
+                  Back
+                </Button>
+                <Button variant="outline dark" className="delete-button" onClick={() => this.handleDeregister()}>
+                  Delete User
+                </Button>
+              </Link>
+            </Card>
+          </CardGroup>
+        </Container>
       </div>
     )
   }

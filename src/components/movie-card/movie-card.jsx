@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardGroup';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,16 +17,18 @@ export class MovieCard extends React.Component {
 
       <Row className="movie_row">
         <Col className="card_columns">
-          <Card style={{ width: '12rem' }}>
-            <Card.Img variant="top" src={movie.ImagePath} />
-            <Card.Body>
-              <Card.Title>{movie.Title}</Card.Title>
-              <Card.Text>{movie.Description}</Card.Text>
-              <Link to={`/movies/${movie._id}`}>
-                <Button variant="link">Open</Button>
-              </Link>
-            </Card.Body>
-          </Card>
+          <CardDeck>
+            <Card style={{ width: '12rem' }}>
+              <Card.Img variant="top" src={movie.ImagePath} />
+              <Card.Body>
+                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Text>{movie.Description}</Card.Text>
+                <Link to={`/movies/${movie._id}`}>
+                  <Button variant="link">Open</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </CardDeck>
         </Col>
       </Row>
 
