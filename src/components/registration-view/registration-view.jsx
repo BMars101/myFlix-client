@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { Link } from 'react-router-dom';
 import './registration-view.scss';
 
 export function RegistrationView(props) {
@@ -62,6 +63,11 @@ export function RegistrationView(props) {
               </Form.Label>
             </Form.Group>
             <Button variant="outline-dark" className="button" type="button" onClick={handleRegister}>Submit</Button>
+            <Link to={`/login`}>
+              <Button variant="dark" className="back-button" type="button">
+                Back to Login
+              </Button>
+            </Link>
           </Form>
         </Col>
       </Row>
