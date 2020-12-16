@@ -14,6 +14,13 @@ export function RegistrationView(props) {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
+  //validation for user input fields
+  const [emailErr, setEmailErr] = useState({});
+  const [usernameErr, setUsernameErr] = useState({});
+  const [passwordErr, setPasswordErr] = useState({});
+  const [confirmPasswordErr, setConfirmPassErr] = useState({});
+  const [birthdayErr, setBirthdayErr] = useState({});
+
   const handleRegister = (e) => {
     e.preventDefault();
     axios.post('https://movie-api11.herokuapp.com/users', {
@@ -28,9 +35,27 @@ export function RegistrationView(props) {
         window.open('/', '_self');
       })
       .catch(e => {
-        console.log('error registering the user')
+        console.log('error registering the user');
+        formValidation();
       });
-  }
+  };
+
+  /*const formValidation = () => {
+    const emailErr: {};
+    const usernameErr: {};
+    const passwordErr: {};
+    const birthdayErr: {};
+    let isValid = true;
+
+    if (birthday === '') {
+      birthdayErr.selectDate = 'Please select date';
+      isValid = false;
+    }
+
+    if (password.length < 5) {
+
+    }
+  }*/
 
   return (
     <Container className="form_container">

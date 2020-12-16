@@ -42,14 +42,83 @@ export class ProfileView extends React.Component {
       });
   }
 
+  handleUpdate = (e) => {
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
+    axios.put(
+      `https://movie-api11.herokuapp.com/users/${username}`, {
+      Username: this.username,
+      Password: this.password,
+      Email: this.email,
+      Birthday: this.birthday
+    },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((response) => {
+        const data = response.data;
+        localStorage.setItem("user", data.Username);
+        window.open("/users", "_self");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  handleDeregister = (e) => {
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
+    axios.delete(`https://movie-api11.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` },
+
+      Username: username.anchor,
+    })
+      .then(response => {
+        const data = response.data;
+        window.open("/", "_self");
+      })
+      .catch(function (error) {
+        console.log(error)
+      });
+
+    this.setState({
+      user: null,
+    });
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  };
+
+  /* removeItem(movie) {
+     const username = localStorage.getItem("user");
+     const token = localStorage.getItem("token");
+   }*/
+
+  setUsername(input) {
+    this.username = input;
+  }
+
+  setPassword(input) {
+    this.password = input;
+  }
+
+  setEmail(input) {
+    this.email = input;
+  }
+
+  setBirthday(input) {
+    this.birthday = input;
+  }
 
   render() {
-    /*const { movies } = this.props;
-  
-    const Username = this.state.Username,
-    const Email = this.state.Email,
-    const Birthday = this.state.Birthday,
-    const FavoriteMovies = this.state.FavoriteMovies;*/
+    const { movies } = this.props;
+
+    const Username = this.state.Username;
+    const Email = this.state.Email;
+    const Birthday = this.state.Birthday;
+    const FavoriteMovies = this.state.FavoriteMovies;
 
     return (
       <div className="profile-view">
