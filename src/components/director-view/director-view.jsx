@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import { MainView } from '../main-view/main-view';
 import { MovieView } from '../movie-view/movie-view';
@@ -11,30 +12,23 @@ export class DirectorView extends React.Component {
   }
 
   render() {
-    const { director } = this.props;
+    const { director, movies } = this.props;
 
     return (
       <div className="director-view">
-        <div>
-          <span className="label">Director: </span>
-          <span className="value">{director.Director.Name}</span>
-        </div>
-        <div className="director-bio">
-          <span className="label">Bio: </span>
-          <span className="value">{director.Director.Bio}</span>
-        </div>
-        <div className="director-birthday">
-          <span className="label">Birthday: </span>
-          <span className="value">{director.Director.Birth}</span>
-        </div>
-        <div className="director-death">
-          <span className="label">Death: </span>
-          <span className="value">{director.Director.Death}</span>
-        </div>
+        <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title className="label">Director </Card.Title>
+            <Card.Text className="value">{director.Director.Name}</Card.Text>
+            <Card.Text className="label">Bio: {director.Director.Bio} </Card.Text>
+            <Card.Text className="label">Birthday: {director.Director.Birth}</Card.Text>
+            <Card.Text className="label">Death: {director.Director.Death} </Card.Text>
+          </Card.Body>
+        </Card>
         <Link to={`/`}>
-          <Button variant="outline dark" className="back-button">Back</Button>
+          <Button variant="dark" className="back-button">Back</Button>
         </Link>
-      </div>
+      </div >
     )
   }
 };

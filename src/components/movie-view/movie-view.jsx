@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movie-view.scss';
 
@@ -9,7 +9,31 @@ export class MovieView extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      favoriteMovies: [],
+    };
+  }
+
+  addToFavorites(movie) {
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
+    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie}`, {
+      FavoriteMovies: this.FavoriteMovies
+    },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+      .then(response => {
+        this.setState({
+          FavoriteMovies: response.data.FavoriteMovies
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    alert("movie added to movie list")
   }
 
   render() {
@@ -31,7 +55,7 @@ export class MovieView extends React.Component {
         <div className="movie-genre">
           <span className="label">Genre: </span>
           <span className="value">{movie.Genre.Name}</span>
-          <Link to={`/genres/${movie.Genre.Name}`}>
+          <Link to={`/genre/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
         </div>
@@ -43,11 +67,17 @@ export class MovieView extends React.Component {
           </Link>
         </div>
         <div>
+          <Button variant="dark" className="favorite-button" onClick={() => this.addToFavorites(movie._id)}>
+            Add to Favorites
+          </Button>
+        </div>
+        <br />
+        <div>
           <Link to={'/'}>
             <Button variant="outline-dark" className="back-button">Back</Button>
           </Link>
         </div>
-      </div>
+      </div >
 
     );
   }
@@ -59,5 +89,5 @@ MovieView.propTypes = {
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired
-  }).isRequired
+  })
 };

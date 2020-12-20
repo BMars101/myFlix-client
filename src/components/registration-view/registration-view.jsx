@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './registration-view.scss';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
@@ -31,6 +33,7 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
+        props.onRegister('register');
         console.log(data);
         window.open('/', '_self');
       })
@@ -40,22 +43,52 @@ export function RegistrationView(props) {
       });
   };
 
-  /*const formValidation = () => {
-    const emailErr: {};
-    const usernameErr: {};
-    const passwordErr: {};
-    const birthdayErr: {};
+  const formValidation = () => {
+    const emailErr = {};
+    const usernameErr = {};
+    const passwordErr = {};
+    const confirmPasswordErr = {};
+    const birthdayErr = {};
     let isValid = true;
 
-    if (birthday === '') {
-      birthdayErr.selectDate = 'Please select date';
+    if (!email.includes('@')) {
+      emailErr.emailNotInclude = "Please enter valid email";
+      invalid = false;
+    }
+
+    if (username.trim().length === 0) {
+      usernameErr.usernameEmpty = "Please enter username"
       isValid = false;
     }
 
-    if (password.length < 5) {
-
+    if (password.trim().length < 5) {
+      passwordErr.passwordTooShort = "Password must be at least 5 characters";
+      isValid = false;
     }
-  }*/
+
+    if (confirmPassword.trim().length === 0) {
+      confirmPasswordErr.confrimPasswordEmpty = "Please re-enter password"
+      isValid = false;
+    }
+
+    if (password.trim() !== confirmPasswordErr.trim()) {
+      confrimPasswordErr.passwordDoesNotMatch = "password does not match";
+      passwordErr.passwordNoMatch = "password does not match";
+      isValid = false;
+    }
+
+    if (birthday === '') {
+      birthdayErr.selectDate = "Please enter a birthday";
+      isValid = false;
+    }
+
+    setUsernameErr(usernameErr);
+    setEmailErr(emailErr);
+    setPasswordErr(passwordErr);
+    setConfirmPasswordErr(confirmPasswordErr);
+    setBirthdayErr(birthdayErr);
+    return isValid;
+  };
 
   return (
     <Container className="form_container">
@@ -64,30 +97,72 @@ export function RegistrationView(props) {
           <Form>
             <Form.Group className="register_form">
               <Form.Label className="form-item">
-                Email: <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-              </Form.Label>
+                Email:
+                </Form.Label>
+              <Form.Control
+                type="text"
+                value={email}
+                onChange={e => setEmail(e.target.value)} />
+              {Object.keys(emailErr).map((key) => {
+                return <div style={{ fontSize: 12, color: "red" }}>{emailErr[key]}</div>
+              })}
+
             </Form.Group>
             <Form.Group>
               <Form.Label className="form-item">
-                Username: <input type="text" className="input_box" value={username} onChange={e => setUsername(e.target.value)} />
+                Username:
               </Form.Label>
+              <Form.Control
+                type="text"
+                className="input_box"
+                value={username}
+                onChange={e => setUsername(e.target.value)} />
+              {Object.keys(usernameErr).map((key) => { return <div style={{ fontSize: 12, color: "red" }}>{usernameErr[key]}</div> })}
             </Form.Group>
             <Form.Group>
               <Form.Label className="form-item">
-                Password: <input type="password" className="input_box" value={password} onChange={e => setPassword(e.target.value)} />
+                Password:
               </Form.Label>
+              <Form.Control
+                type="password"
+                className="input_box"
+                value={password}
+                onChange={e => setPassword(e.target.value)} />
+              {Object.keys(passwordErr).map((key) => { return <div style={{ fontSize: 12, color: "red" }}>{passwordErr[key]}</div> })}
             </Form.Group>
             <Form.Group>
               <Form.Label className="form-item">
-                Re-enter Password: <input type="password" className="input_box" value={password} onChange={e => setPassword(e.target.value)} />
+                Re-enter Password:
               </Form.Label>
+              <Form.Control
+                type="password"
+                className="input_box"
+                value={confirmPassword}
+                onChange={e => setPassword(e.target.value)} />
+              {Object.keys(confirmEmailErr).map((key) => {
+                return <div style={{ fontSize: 12, color: "red" }}>{confirmPasswordErr[key]}</div>
+              })}
             </Form.Group>
             <Form.Group>
               <Form.Label className="form-item">
-                Birthday: <input type="date" className="input_box" value={birthday} onChange={e => setBirthday(e.target.value)} />
+                Birthday:
               </Form.Label>
+              <Form.Control
+                type="date"
+                className="input_box"
+                value={birthday}
+                onChange={e => setBirthday(e.target.value)} />
+              {Object.keys(birthdayErr).map((key) => {
+                return <div style={{ fontSize: 12, color: "red" }}>{birthdayErr[key]}</div>
+              })}
             </Form.Group>
-            <Button variant="outline-dark" className="button" type="button" onClick={handleRegister}>Submit</Button>
+            <Button
+              variant="outline-dark"
+              className="button"
+              type="button"
+              onClick={handleRegister}>
+              Submit
+            </Button>
             <Link to={`/`}>
               <Button variant="dark" className="back-button" type="button">
                 Back to Login
@@ -101,10 +176,13 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.proptypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  email: PropTypes.any.isRequired,
-  birthday: PropTypes.any.isRequired,
+  register: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    confirmPassword: PropTypes.string.isRequired,
+    email: PropTypes.any.isRequired,
+    birthday: PropTypes.any.isRequired,
+  }),
   onLoggedIn: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 }

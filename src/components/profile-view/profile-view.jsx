@@ -23,6 +23,7 @@ export class ProfileView extends React.Component {
       email: '',
       birthday: '',
       favoriteMovies: [],
+      FavoriteMovies: []
     };
   }
 
@@ -100,10 +101,26 @@ export class ProfileView extends React.Component {
     localStorage.removeItem("token");
   };
 
-  /* removeItem(movie) {
-     const username = localStorage.getItem("user");
-     const token = localStorage.getItem("token");
-   }*/
+  removeItem(movie) {
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
+    axios.delete(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+
+        FavoriteMovies: this.FavoriteMovies,
+      }
+    )
+      .then(response => {
+        this.setState({
+          FavoriteMovies: response.data.FavoriteMovies,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   setUsername(input) {
     this.username = input;
@@ -122,7 +139,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { movies } = this.props;
 
     const Username = this.state.Username;
     const Email = this.state.Email;
@@ -145,6 +162,9 @@ export class ProfileView extends React.Component {
                 <Card.Text className="card-text">
                   Birthday: {Birthday}
                 </Card.Text>
+                <Button variant="danger" className="delete-button" onClick={() => this.handleDeregister()}>
+                  Delete User
+                </Button>
               </Card.Body>
             </Card>
             <Card className="update-user-card">
@@ -190,19 +210,41 @@ export class ProfileView extends React.Component {
                   Update
                   </Button>
               </Card.Body>
-
               <Link to={`/`}>
                 <Button variant="dark" className="back-button">
                   Back
                 </Button>
-                <Button variant="outline dark" className="delete-button" onClick={() => this.handleDeregister()}>
-                  Delete User
-                </Button>
               </Link>
             </Card>
+            <Card className="favorites-list">
+              <Card.Header as="h3">Favorite Movie List</Card.Header>
+              <Card.Body>
+                {FavoriteMovies.length === 0 && <div>Add Favorites</div>}
+                <div>
+                  <ul>
+                    {FavoriteMovies.length > 0 && movies.map((movie) => {
+                      if (movie._id === FavoriteMovies.find((favoriteMovie) => favoriteMovie === movie._id)
+                      ) {
+                        return (
+                          <li className="favorite-item" key={movie._id}>
+                            {movie.Title}
+                            <Button
+                              variant="outline-dark"
+                              className="remove-item"
+                              onClick={() => this.removeItem(movie._id)}>
+                              Remove Movie
+                        </Button>
+                          </li>
+                        );
+                      }
+                    })}
+                  </ul>
+                </div>
+              </Card.Body>
+            </Card>
           </CardGroup>
-        </Container>
-      </div>
+        </Container >
+      </div >
     )
   }
 };

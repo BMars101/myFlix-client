@@ -18,7 +18,7 @@ export class MovieCard extends React.Component {
       <Row className="movie_row">
         <Col className="card_columns">
           <CardDeck>
-            <Card style={{ width: '12rem' }}>
+            <Card style={{ width: '16rem' }} className="movie-card">
               <Card.Img variant="top" src={movie.ImagePath} />
               <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>

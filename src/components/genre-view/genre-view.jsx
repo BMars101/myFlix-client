@@ -14,25 +14,21 @@ export class GenreView extends React.Component {
 
   render() {
 
-    const { genre } = this.props;
+    const { genre, movies } = this.props;
 
     //if (!movie) return null;
 
     return (
       <div className="genre-view">
-        <div>
-          <span className="label">Genre: </span>
-          <span className="value">{genre.Genre}</span>
-        </div>
         <div className="genre-name">
-          <span className="label">Name: </span>
+          <span className="label">Genre: </span>
           <span className="value">{genre.Genre.Name}</span>
         </div>
         <div className="genre-description">
           <span className="label">Description: </span>
           <span className="value">{genre.Genre.Description}</span>
         </div>
-        <Link to={`/movies/${movie._id}`}>
+        <Link to={`/`}>
           <Button variant="outline dark" className="back-button">Back</Button>
         </Link>
 
@@ -46,6 +42,11 @@ GenreView.propTypes = {
   genre: PropTypes.shape({
     Name: PropTypes.string,
     Description: PropTypes.string,
+  }),
+  movies: PropTypes.shape({
+    Title: PropTypes.string,
+    Description: PropTypes.string,
+    ImagePath: PropTypes.string
   })
 };
 
