@@ -37499,7 +37499,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = (0, _createWithBsPrefix.default)('card-group');
 
 exports.default = _default;
-},{"./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
+},{"./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37522,6 +37527,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 var _reactRouterDom = require("react-router-dom");
 
 var _axios = _interopRequireDefault(require("axios"));
+
+require("./profile-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37769,6 +37776,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "dark",
+        style: {
+          margin: "15px"
+        },
         className: "back-button"
       }, "Back"))), _react.default.createElement(_Card.default, {
         className: "favorites-list"
@@ -37798,7 +37808,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
 exports.ProfileView = ProfileView;
 ;
-},{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js","./profile-view.scss":"components/profile-view/profile-view.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -39159,7 +39169,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         className: "card_columns"
       }, _react.default.createElement(_CardGroup.default, null, _react.default.createElement(_Card.default, {
         style: {
-          width: '16rem'
+          width: '18rem'
         },
         className: "movie-card"
       }, _react.default.createElement(_Card.default.Img, {
@@ -39803,6 +39813,10 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _CardGroup = _interopRequireDefault(require("react-bootstrap/CardGroup"));
+
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
 var _reactRouterDom = require("react-router-dom");
 
 var _mainView = require("../main-view/main-view");
@@ -39855,26 +39869,33 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
           genre = _this$props.genre,
           movies = _this$props.movies; //if (!movie) return null;
 
-      return _react.default.createElement("div", {
+      return _react.default.createElement(_CardGroup.default, null, _react.default.createElement(_Card.default, {
+        style: {
+          width: '18rem'
+        },
         className: "genre-view"
-      }, _react.default.createElement("div", {
-        className: "genre-name"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Genre: "), _react.default.createElement("span", {
-        className: "value"
-      }, genre.Genre.Name)), _react.default.createElement("div", {
-        className: "genre-description"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Description: "), _react.default.createElement("span", {
-        className: "value"
-      }, genre.Genre.Description)), _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, "Movie Genre"), _react.default.createElement(_Card.default.Text, null, "Genre: ", genre.Genre.Name), _react.default.createElement(_Card.default.Text, null, "Description: ", genre.Genre.Description)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "outline dark",
         className: "back-button"
-      }, "Back")));
+      }, "Back"))), _react.default.createElement(_Card.default, {
+        style: {
+          width: '18rem'
+        },
+        className: "movie-genre"
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, "Movies in Same Genre"), movies.map(function (movie) {
+        if (movie.Genre.Name === genre.Genre.Name) {
+          return _react.default.createElement("div", {
+            key: movie._id
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movie/".concat(movie._id)
+          }, _react.default.createElement(_Button.default, {
+            variant: "light",
+            className: "movie-button"
+          }, movie.Title)));
+        }
+      }))));
     }
   }]);
 
@@ -39894,7 +39915,7 @@ GenreView.propTypes = {
     ImagePath: _propTypes.default.string
   })
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39907,6 +39928,8 @@ var _react = _interopRequireDefault(require("react"));
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
+var _CardGroup = _interopRequireDefault(require("react-bootstrap/CardGroup"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -39961,7 +39984,7 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
           movies = _this$props.movies;
       return _react.default.createElement("div", {
         className: "director-view"
-      }, _react.default.createElement(_Card.default, {
+      }, _react.default.createElement(_Card.default.Group, null, _react.default.createElement(_Card.default, {
         style: {
           width: '18rem'
         }
@@ -39975,12 +39998,25 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Birthday: ", director.Director.Birth), _react.default.createElement(_Card.default.Text, {
         className: "label"
-      }, "Death: ", director.Director.Death, " "))), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Death: ", director.Director.Death, " "), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "dark",
         className: "back-button"
-      }, "Back")));
+      }, "Back")))), "/*", _react.default.createElement(_Card.default, {
+        className: "director-movies"
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Titles, null, "Movies Directed:"), movies.map(function (movie) {
+        if (movie.Director.Name === director.Director.Name) {
+          return _react.default.createElement("div", {
+            key: movie._id
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie_id)
+          }, _react.default.createElement(_Button.default, {
+            variant: "light",
+            className: "movie-button"
+          }, movie.Title)));
+        }
+      }), "}")), "*/"));
     }
   }]);
 
@@ -39989,7 +40025,7 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
 
 exports.DirectorView = DirectorView;
 ;
-},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40292,7 +40328,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60204" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63285" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

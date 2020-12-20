@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './profile-view.scss';
 
 export class ProfileView extends React.Component {
   constructor(props) {
@@ -211,7 +212,7 @@ export class ProfileView extends React.Component {
                   </Button>
               </Card.Body>
               <Link to={`/`}>
-                <Button variant="dark" className="back-button">
+                <Button variant="dark" style={{ margin: "15px" }} className="back-button">
                   Back
                 </Button>
               </Link>
