@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import CardColumns from 'react-bootstrap/CardColumns';
 import './main-view.scss'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { NavView } from '../nav-view/nav-view';
@@ -61,6 +62,7 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+
   render() {
     const { movies, user } = this.state;
 
@@ -73,29 +75,51 @@ export class MainView extends React.Component {
     return (
       <div>
         <NavView />
-        <Container className="main-view_container">
-          <Router>
-            <div className="main-view">
-              <Route exact path="/" render={() => {
-                if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                return movies.map(m =>
-                  <MovieCard key={m._id} movie={m} />
+        <Router>
+          <div className="main-view">
+            <Route exact path="/"
+              render={() => {
+                if (!user)
+                  return
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                return (
+                  <CardColumns>
+                    {movies.map(m =>
+                      <MovieCard key={m._id} movie={m} />)}
+                  </CardColumns>
                 )
               }} />
-              <Route exact path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-              <Route exact path="/genre/:name" render={({ match }) => {
+            <Route path="/register" render={() => <RegistrationView />} />
+            <Route
+              exact path="/movies/:movieId"
+              render={({ match }) =>
+                <MovieView
+                  movie={movies.find(m => m._id === match.params.movieId)}
+                />
+              }
+            />
+            <Route
+              exact path="/genres/:name"
+              render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
-                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name)} />//.Genre} />
+                return (
+                  <GenreView
+                    genre={movies.find(m => m.Genre.Name === match.params.name)} movies={movies}
+                  />
+                );
               }} />
-              <Route exact path="/directors/:name" render={({ match }) => {
+            <Route
+              exact path="/directors/:name"
+              render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
-                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name)} />//.Director} />
-              }} />
-              <Route path="/register" render={() => <RegistrationView />} />
-              <Route path="/users" render={() => <ProfileView />} />
-            </div>
-          </Router>
-        </Container>
+                return (
+                  <DirectorView director={movies.find(m => m.Director.Name === match.params.name)} movies={movies} />
+                );
+              }}
+            />
+            <Route path="/users" render={() => <ProfileView />} />
+          </div>
+        </Router>
       </div >
     );
   }

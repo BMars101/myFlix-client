@@ -10,7 +10,7 @@ export class MovieView extends React.Component {
     super();
 
     this.state = {
-      favoriteMovies: [],
+      FavoriteMovies: [],
     };
   }
 
@@ -55,7 +55,7 @@ export class MovieView extends React.Component {
         <div className="movie-genre">
           <span className="label">Genre: </span>
           <span className="value">{movie.Genre.Name}</span>
-          <Link to={`/genre/${movie.Genre.Name}`}>
+          <Link to={`/genres/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
         </div>

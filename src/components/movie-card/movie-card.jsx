@@ -14,25 +14,16 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
 
     return (
-
-      <Row className="movie_row">
-        <Col className="card_columns">
-          <CardDeck>
-            <Card style={{ width: '18rem' }} className="movie-card">
-              <Card.Img variant="top" src={movie.ImagePath} />
-              <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
-                <Card.Text>{movie.Description}</Card.Text>
-                <Link to={`/movies/${movie._id}`}>
-                  <Button variant="link">Open</Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          </CardDeck>
-        </Col>
-      </Row>
-
-      /* <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>*/
+      <Card style={{ width: '18rem' }} className="movie-card">
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Text>{movie.Description}</Card.Text>
+          <Link to={`/movies/${movie._id}`}>
+            <Button variant="link">Open</Button>
+          </Link>
+        </Card.Body>
+      </Card>
     );
   }
 }
@@ -42,6 +33,5 @@ MovieCard.propTypes = {
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired
-  }).isRequired,
-  //onClick: PropTypes.func.isRequired
+  }).isRequired
 };

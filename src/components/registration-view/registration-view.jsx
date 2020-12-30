@@ -139,7 +139,7 @@ export function RegistrationView(props) {
                 className="input_box"
                 value={confirmPassword}
                 onChange={e => setPassword(e.target.value)} />
-              {Object.keys(confirmEmailErr).map((key) => {
+              {Object.keys(confirmPasswordErr).map((key) => {
                 return <div style={{ fontSize: 12, color: "red" }}>{confirmPasswordErr[key]}</div>
               })}
             </Form.Group>

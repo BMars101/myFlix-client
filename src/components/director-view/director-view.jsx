@@ -13,14 +13,14 @@ export class DirectorView extends React.Component {
   }
 
   render() {
-    const { director, movies } = this.props;
+    const { director, movie } = this.props;
 
     return (
       <div className="director-view">
         <Card.Group>
           <Card style={{ width: '18rem' }}>
             <Card.Body>
-              <Card.Title className="label">Director </Card.Title>
+              <Card.Title className="label">Director: </Card.Title>
               <Card.Text className="value">{director.Director.Name}</Card.Text>
               <Card.Text className="label">Bio: {director.Director.Bio} </Card.Text>
               <Card.Text className="label">Birthday: {director.Director.Birth}</Card.Text>
@@ -30,7 +30,7 @@ export class DirectorView extends React.Component {
               </Link>
             </Card.Body>
           </Card>
-          /*<Card className="director-movies">
+          <Card className="director-movies">
             <Card.Body>
               <Card.Titles>Movies Directed:</Card.Titles>
               {movies.map(movie => {
@@ -43,9 +43,8 @@ export class DirectorView extends React.Component {
                 }
               }
               )}
-            }
             </Card.Body>
-          </Card>*/
+          </Card>
         </Card.Group>
 
 
