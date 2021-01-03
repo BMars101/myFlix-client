@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import { MainView } from '../main-view/main-view';
 import { MovieView } from '../movie-view/movie-view';
+import './genre-view.scss';
 
 export class GenreView extends React.Component {
   constructor() {
@@ -24,17 +25,19 @@ export class GenreView extends React.Component {
       <CardGroup>
         <Card style={{ width: '18rem' }} className="genre-view">
           <Card.Body>
-            <Card.Title>Movie Genre</Card.Title>
-            <Card.Text>Genre: {genre.Genre.Name}</Card.Text>
-            <Card.Text>Description: {genre.Genre.Description}</Card.Text>
+            <Card.Header className="label-header">Movie Genre</Card.Header>
+            <Card.Title className="label">Genre: </Card.Title>
+            <Card.Text>{genre.Genre.Name}</Card.Text>
+            <Card.Title className="label">Description: </Card.Title>
+            <Card.Text>{genre.Genre.Description}</Card.Text>
           </Card.Body>
           <Link to={`/`}>
-            <Button variant="outline dark" className="back-button">Back</Button>
+            <Button variant="dark" className="back-button">Back</Button>
           </Link>
         </Card>
         <Card style={{ width: '18rem' }} className="movie-genre">
           <Card.Body>
-            <Card.Title>Movies in Same Genre</Card.Title>
+            <Card.Title className="label-header">Movies in Same Genre: </Card.Title>
             {movies.map(movie => {
               if (movie.Genre.Name === genre.Genre.Name) {
                 return (<div key={movie._id}>

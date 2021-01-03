@@ -13,42 +13,60 @@ export class DirectorView extends React.Component {
   }
 
   render() {
-    const { director, movie } = this.props;
+    const { director, movies } = this.props;
 
     return (
-      <div className="director-view">
-        <Card.Group>
-          <Card style={{ width: '18rem' }}>
-            <Card.Body>
-              <Card.Title className="label">Director: </Card.Title>
-              <Card.Text className="value">{director.Director.Name}</Card.Text>
-              <Card.Text className="label">Bio: {director.Director.Bio} </Card.Text>
-              <Card.Text className="label">Birthday: {director.Director.Birth}</Card.Text>
-              <Card.Text className="label">Death: {director.Director.Death} </Card.Text>
-              <Link to={`/`}>
-                <Button variant="dark" className="back-button">Back</Button>
-              </Link>
-            </Card.Body>
-          </Card>
-          <Card className="director-movies">
-            <Card.Body>
-              <Card.Titles>Movies Directed:</Card.Titles>
-              {movies.map(movie => {
-                if (movie.Director.Name === director.Director.Name) {
-                  return (<div key={movie._id}>
-                    <Link to={`/movies/${movie_id}`}>
-                      <Button variant="light" className="movie-button">{movie.Title}</Button>
-                    </Link>
-                  </div>)
-                }
+      <CardGroup>
+        <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Header className="label">
+              Director
+            </Card.Header>
+            <Card.Title className="value">
+              Name:
+              </Card.Title>
+            <Card.Text className="value">
+              {director.Director.Name}
+            </Card.Text>
+            <Card.Title className="label">
+              Bio:
+              </Card.Title>
+            <Card.Text className="label">
+              {director.Director.Bio}
+            </Card.Text>
+            <Card.Title className="label">
+              Birthday:
+              </Card.Title>
+            <Card.Text className="label">
+              {director.Director.Birth}
+            </Card.Text>
+            <Card.Title className="label">
+              Death:
+            </Card.Title>
+            <Card.Text className="label">
+              {director.Director.Death}
+            </Card.Text>
+            <Link to={`/`}>
+              <Button variant="dark" className="back-button">Back</Button>
+            </Link>
+          </Card.Body>
+        </Card>
+        <Card className="director-movies">
+          <Card.Body>
+            <Card.Title>Movies Directed:</Card.Title>
+            {movies.map(movie => {
+              if (movie.Director.Name === director.Director.Name) {
+                return (<div key={movie._id}>
+                  <Link to={`/movie/${movie._id}`}>
+                    <Button variant="light" className="movie-button">{movie.Title}</Button>
+                  </Link>
+                </div>)
               }
-              )}
-            </Card.Body>
-          </Card>
-        </Card.Group>
-
-
-      </div >
+            }
+            )}
+          </Card.Body>
+        </Card>
+      </CardGroup >
     )
   }
 };

@@ -12,29 +12,35 @@ export class ProfileView extends React.Component {
   constructor(props) {
     super();
 
-    this.username = undefined;
-    this.password = undefined;
-    this.email = undefined;
-    this.birthday = undefined;
+    this.Username = undefined;
+    this.Password = undefined;
+    this.Email = undefined;
+    this.Birthday = undefined;
 
     this.state = {
-      user: null,
-      username: '',
-      password: '',
-      email: '',
-      birthday: '',
-      favoriteMovies: [],
+      User: null,
+      Username: '',
+      Password: '',
+      Email: '',
+      Birthday: '',
       FavoriteMovies: []
     };
+    console.log('Constructor');
+    console.log(this.Username);
   }
 
+
   componenetDidMount() {
+    console.log('here');
     const accessToken = localStorage.getItem("token");
     this.getUser(accessToken);
   }
 
   getUser(token) {
     const username = localStorage.getItem("user");
+    console.log('getUsertoken')
+    console.log(username)
+
 
     axios.get(`https://movie-api11.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -47,11 +53,15 @@ export class ProfileView extends React.Component {
           Birthday: response.data.Birthday,
           FavoriteMovies: response.data.FavoriteMovies
         });
+        console.log('getResponse')
+        console.log(this.Username)
       })
       .catch(function (error) {
         console.log(error);
       });
   }
+
+
 
   handleUpdate = (e) => {
     const username = localStorage.getItem("user");
@@ -59,10 +69,10 @@ export class ProfileView extends React.Component {
 
     axios.put(
       `https://movie-api11.herokuapp.com/users/${username}`, {
-      Username: this.username,
-      Password: this.password,
-      Email: this.email,
-      Birthday: this.birthday
+      Username: this.Username,
+      Password: this.Password,
+      Email: this.Email,
+      Birthday: this.Birthday
     },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -124,19 +134,19 @@ export class ProfileView extends React.Component {
   }
 
   setUsername(input) {
-    this.username = input;
+    this.Username = input;
   }
 
   setPassword(input) {
-    this.password = input;
+    this.Password = input;
   }
 
   setEmail(input) {
-    this.email = input;
+    this.Email = input;
   }
 
   setBirthday(input) {
-    this.birthday = input;
+    this.Birthday = input;
   }
 
   render() {
@@ -146,6 +156,7 @@ export class ProfileView extends React.Component {
     const Email = this.state.Email;
     const Birthday = this.state.Birthday;
     const FavoriteMovies = this.state.FavoriteMovies;
+    console.log(this.state);
 
     return (
       <div className="profile-view">
@@ -176,7 +187,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="text"
                     name="username"
-                    value={this.username}
+                    value={this.Username}
                     onChange={(e) => this.setUsername(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
@@ -184,7 +195,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="password"
                     name="password"
-                    value={this.password}
+                    value={this.Password}
                     onChange={(e) => this.setPassword(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
@@ -194,7 +205,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="email"
                     name="email"
-                    value={this.email}
+                    value={this.Email}
                     onChange={(e) => this.setEmail(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
@@ -204,7 +215,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="date"
                     name="birthday"
-                    value={this.birthday}
+                    value={this.Birthday}
                     onChange={(e) => this.setBirthday(e.target.value)} />
                 </Form.Group>
                 <Button variant="dark" className="update-button" onClick={() => this.handleUpdate()}>
@@ -224,7 +235,7 @@ export class ProfileView extends React.Component {
                 <div>
                   <ul>
                     {FavoriteMovies.length > 0 && movies.map((movie) => {
-                      if (movie._id === FavoriteMovies.find((favoriteMovie) => favoriteMovie === movie._id)
+                      if (movie._id === FavoriteMovies.find((FavoriteMovie) => FavoriteMovie === movie._id)
                       ) {
                         return (
                           <li className="favorite-item" key={movie._id}>

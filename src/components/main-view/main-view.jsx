@@ -80,8 +80,8 @@ export class MainView extends React.Component {
             <Route exact path="/"
               render={() => {
                 if (!user)
-                  return
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                  return (
+                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />);
                 return (
                   <CardColumns>
                     {movies.map(m =>
@@ -89,7 +89,6 @@ export class MainView extends React.Component {
                   </CardColumns>
                 )
               }} />
-            <Route path="/register" render={() => <RegistrationView />} />
             <Route
               exact path="/movies/:movieId"
               render={({ match }) =>
@@ -113,10 +112,12 @@ export class MainView extends React.Component {
               render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
                 return (
-                  <DirectorView director={movies.find(m => m.Director.Name === match.params.name)} movies={movies} />
+                  <DirectorView
+                    director={movies.find(m => m.Director.Name === match.params.name)} movies={movies} />
                 );
               }}
             />
+            <Route path="/register" render={() => <RegistrationView />} />
             <Route path="/users" render={() => <ProfileView />} />
           </div>
         </Router>

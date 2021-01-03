@@ -20,14 +20,16 @@ export function RegistrationView(props) {
   const [emailErr, setEmailErr] = useState({});
   const [usernameErr, setUsernameErr] = useState({});
   const [passwordErr, setPasswordErr] = useState({});
-  const [confirmPasswordErr, setConfirmPassErr] = useState({});
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState({});
   const [birthdayErr, setBirthdayErr] = useState({});
 
-  const handleRegister = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const isValid = formValidation();
     axios.post('https://movie-api11.herokuapp.com/users', {
       Username: username,
       Password: password,
+      ReenterPassword: confirmPassword,
       Email: email,
       Birthday: birthday
     })
@@ -53,7 +55,7 @@ export function RegistrationView(props) {
 
     if (!email.includes('@')) {
       emailErr.emailNotInclude = "Please enter valid email";
-      invalid = false;
+      isValid = false;
     }
 
     if (username.trim().length === 0) {
@@ -71,7 +73,7 @@ export function RegistrationView(props) {
       isValid = false;
     }
 
-    if (password.trim() !== confirmPasswordErr.trim()) {
+    if (password.trim() !== confirmPassword.trim()) {
       confrimPasswordErr.passwordDoesNotMatch = "password does not match";
       passwordErr.passwordNoMatch = "password does not match";
       isValid = false;
@@ -138,7 +140,7 @@ export function RegistrationView(props) {
                 type="password"
                 className="input_box"
                 value={confirmPassword}
-                onChange={e => setPassword(e.target.value)} />
+                onChange={e => setConfirmPassword(e.target.value)} />
               {Object.keys(confirmPasswordErr).map((key) => {
                 return <div style={{ fontSize: 12, color: "red" }}>{confirmPasswordErr[key]}</div>
               })}
@@ -160,7 +162,7 @@ export function RegistrationView(props) {
               variant="outline-dark"
               className="button"
               type="button"
-              onClick={handleRegister}>
+              onClick={handleSubmit}>
               Submit
             </Button>
             <Link to={`/`}>
