@@ -12,7 +12,6 @@ import './registration-view.scss';
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
@@ -20,7 +19,6 @@ export function RegistrationView(props) {
   const [emailErr, setEmailErr] = useState({});
   const [usernameErr, setUsernameErr] = useState({});
   const [passwordErr, setPasswordErr] = useState({});
-  const [confirmPasswordErr, setConfirmPasswordErr] = useState({});
   const [birthdayErr, setBirthdayErr] = useState({});
 
   const handleSubmit = (e) => {
@@ -29,7 +27,6 @@ export function RegistrationView(props) {
     axios.post('https://movie-api11.herokuapp.com/users', {
       Username: username,
       Password: password,
-      ReenterPassword: confirmPassword,
       Email: email,
       Birthday: birthday
     })
@@ -49,7 +46,6 @@ export function RegistrationView(props) {
     const emailErr = {};
     const usernameErr = {};
     const passwordErr = {};
-    const confirmPasswordErr = {};
     const birthdayErr = {};
     let isValid = true;
 
@@ -68,17 +64,6 @@ export function RegistrationView(props) {
       isValid = false;
     }
 
-    if (confirmPassword.trim().length === 0) {
-      confirmPasswordErr.confrimPasswordEmpty = "Please re-enter password"
-      isValid = false;
-    }
-
-    if (password.trim() !== confirmPassword.trim()) {
-      confrimPasswordErr.passwordDoesNotMatch = "password does not match";
-      passwordErr.passwordNoMatch = "password does not match";
-      isValid = false;
-    }
-
     if (birthday === '') {
       birthdayErr.selectDate = "Please enter a birthday";
       isValid = false;
@@ -87,7 +72,7 @@ export function RegistrationView(props) {
     setUsernameErr(usernameErr);
     setEmailErr(emailErr);
     setPasswordErr(passwordErr);
-    setConfirmPasswordErr(confirmPasswordErr);
+    //setConfirmPasswordErr(confirmPasswordErr);
     setBirthdayErr(birthdayErr);
     return isValid;
   };
@@ -131,19 +116,6 @@ export function RegistrationView(props) {
                 value={password}
                 onChange={e => setPassword(e.target.value)} />
               {Object.keys(passwordErr).map((key) => { return <div style={{ fontSize: 12, color: "red" }}>{passwordErr[key]}</div> })}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label className="form-item">
-                Re-enter Password:
-              </Form.Label>
-              <Form.Control
-                type="password"
-                className="input_box"
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)} />
-              {Object.keys(confirmPasswordErr).map((key) => {
-                return <div style={{ fontSize: 12, color: "red" }}>{confirmPasswordErr[key]}</div>
-              })}
             </Form.Group>
             <Form.Group>
               <Form.Label className="form-item">

@@ -39437,44 +39437,34 @@ function RegistrationView(props) {
 
   var _useState5 = (0, _react.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      confirmPassword = _useState6[0],
-      setConfirmPassword = _useState6[1];
+      email = _useState6[0],
+      setEmail = _useState6[1];
 
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      email = _useState8[0],
-      setEmail = _useState8[1];
+      birthday = _useState8[0],
+      setBirthday = _useState8[1]; //validation for user input fields
 
-  var _useState9 = (0, _react.useState)(''),
+
+  var _useState9 = (0, _react.useState)({}),
       _useState10 = _slicedToArray(_useState9, 2),
-      birthday = _useState10[0],
-      setBirthday = _useState10[1]; //validation for user input fields
-
+      emailErr = _useState10[0],
+      setEmailErr = _useState10[1];
 
   var _useState11 = (0, _react.useState)({}),
       _useState12 = _slicedToArray(_useState11, 2),
-      emailErr = _useState12[0],
-      setEmailErr = _useState12[1];
+      usernameErr = _useState12[0],
+      setUsernameErr = _useState12[1];
 
   var _useState13 = (0, _react.useState)({}),
       _useState14 = _slicedToArray(_useState13, 2),
-      usernameErr = _useState14[0],
-      setUsernameErr = _useState14[1];
+      passwordErr = _useState14[0],
+      setPasswordErr = _useState14[1];
 
   var _useState15 = (0, _react.useState)({}),
       _useState16 = _slicedToArray(_useState15, 2),
-      passwordErr = _useState16[0],
-      setPasswordErr = _useState16[1];
-
-  var _useState17 = (0, _react.useState)({}),
-      _useState18 = _slicedToArray(_useState17, 2),
-      confirmPasswordErr = _useState18[0],
-      setConfirmPasswordErr = _useState18[1];
-
-  var _useState19 = (0, _react.useState)({}),
-      _useState20 = _slicedToArray(_useState19, 2),
-      birthdayErr = _useState20[0],
-      setBirthdayErr = _useState20[1];
+      birthdayErr = _useState16[0],
+      setBirthdayErr = _useState16[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
@@ -39483,7 +39473,6 @@ function RegistrationView(props) {
     _axios.default.post('https://movie-api11.herokuapp.com/users', {
       Username: username,
       Password: password,
-      ReenterPassword: confirmPassword,
       Email: email,
       Birthday: birthday
     }).then(function (response) {
@@ -39501,7 +39490,6 @@ function RegistrationView(props) {
     var emailErr = {};
     var usernameErr = {};
     var passwordErr = {};
-    var confirmPasswordErr = {};
     var birthdayErr = {};
     var isValid = true;
 
@@ -39520,17 +39508,6 @@ function RegistrationView(props) {
       isValid = false;
     }
 
-    if (confirmPassword.trim().length === 0) {
-      confirmPasswordErr.confrimPasswordEmpty = "Please re-enter password";
-      isValid = false;
-    }
-
-    if (password.trim() !== confirmPassword.trim()) {
-      confrimPasswordErr.passwordDoesNotMatch = "password does not match";
-      passwordErr.passwordNoMatch = "password does not match";
-      isValid = false;
-    }
-
     if (birthday === '') {
       birthdayErr.selectDate = "Please enter a birthday";
       isValid = false;
@@ -39538,8 +39515,8 @@ function RegistrationView(props) {
 
     setUsernameErr(usernameErr);
     setEmailErr(emailErr);
-    setPasswordErr(passwordErr);
-    setConfirmPasswordErr(confirmPasswordErr);
+    setPasswordErr(passwordErr); //setConfirmPasswordErr(confirmPasswordErr);
+
     setBirthdayErr(birthdayErr);
     return isValid;
   };
@@ -39599,22 +39576,6 @@ function RegistrationView(props) {
         color: "red"
       }
     }, passwordErr[key]);
-  })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
-    className: "form-item"
-  }, "Re-enter Password:"), _react.default.createElement(_Form.default.Control, {
-    type: "password",
-    className: "input_box",
-    value: confirmPassword,
-    onChange: function onChange(e) {
-      return setConfirmPassword(e.target.value);
-    }
-  }), Object.keys(confirmPasswordErr).map(function (key) {
-    return _react.default.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: "red"
-      }
-    }, confirmPasswordErr[key]);
   })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
     className: "form-item"
   }, "Birthday:"), _react.default.createElement(_Form.default.Control, {
@@ -40021,23 +39982,23 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
         }
       }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Header, {
         className: "label"
-      }, "Director "), _react.default.createElement(_Card.default.Title, {
+      }, "Director"), _react.default.createElement(_Card.default.Title, {
         className: "value"
-      }, "Name: "), _react.default.createElement(_Card.default.Text, {
+      }, "Name:"), _react.default.createElement(_Card.default.Text, {
         className: "value"
       }, director.Director.Name), _react.default.createElement(_Card.default.Title, {
         className: "label"
-      }, "Bio: "), _react.default.createElement(_Card.default.Text, {
+      }, "Bio:"), _react.default.createElement(_Card.default.Text, {
         className: "label"
-      }, director.Director.Bio, " "), _react.default.createElement(_Card.default.Title, {
+      }, director.Director.Bio), _react.default.createElement(_Card.default.Title, {
         className: "label"
-      }, "Birthday: "), _react.default.createElement(_Card.default.Text, {
+      }, "Birthday:"), _react.default.createElement(_Card.default.Text, {
         className: "label"
       }, director.Director.Birth), _react.default.createElement(_Card.default.Title, {
         className: "label"
       }, "Death:"), _react.default.createElement(_Card.default.Text, {
         className: "label"
-      }, director.Director.Death, " "), _react.default.createElement(_reactRouterDom.Link, {
+      }, director.Director.Death), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "dark",
@@ -40369,7 +40330,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59999" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63307" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
