@@ -32,7 +32,7 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
-        props.onRegister('register');
+        //props.onRegister('register');
         console.log(data);
         window.open('/', '_self');
       })
@@ -72,7 +72,6 @@ export function RegistrationView(props) {
     setUsernameErr(usernameErr);
     setEmailErr(emailErr);
     setPasswordErr(passwordErr);
-    //setConfirmPasswordErr(confirmPasswordErr);
     setBirthdayErr(birthdayErr);
     return isValid;
   };
@@ -153,7 +152,6 @@ RegistrationView.proptypes = {
   register: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    confirmPassword: PropTypes.string.isRequired,
     email: PropTypes.any.isRequired,
     birthday: PropTypes.any.isRequired,
   }),
