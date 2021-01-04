@@ -117,6 +117,7 @@ export class MainView extends React.Component {
                 );
               }}
             />
+            <Route path="/login" render={() => <LoginView />} />
             <Route path="/register" render={() => <RegistrationView />} />
             <Route path="/users" render={() => <ProfileView />} />
           </div>

@@ -21,7 +21,7 @@ export function RegistrationView(props) {
   const [passwordErr, setPasswordErr] = useState({});
   const [birthdayErr, setBirthdayErr] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     const isValid = formValidation();
     axios.post('https://movie-api11.herokuapp.com/users', {
@@ -81,6 +81,17 @@ export function RegistrationView(props) {
       <Row>
         <Col xs={12} sm={12} className="form_col">
           <Form>
+            <Form.Group>
+              <Form.Label className="form-item">
+                Username:
+              </Form.Label>
+              <Form.Control
+                type="text"
+                className="input_box"
+                value={username}
+                onChange={e => setUsername(e.target.value)} />
+              {Object.keys(usernameErr).map((key) => { return <div style={{ fontSize: 12, color: "red" }}>{usernameErr[key]}</div> })}
+            </Form.Group>
             <Form.Group className="register_form">
               <Form.Label className="form-item">
                 Email:
@@ -92,18 +103,6 @@ export function RegistrationView(props) {
               {Object.keys(emailErr).map((key) => {
                 return <div style={{ fontSize: 12, color: "red" }}>{emailErr[key]}</div>
               })}
-
-            </Form.Group>
-            <Form.Group>
-              <Form.Label className="form-item">
-                Username:
-              </Form.Label>
-              <Form.Control
-                type="text"
-                className="input_box"
-                value={username}
-                onChange={e => setUsername(e.target.value)} />
-              {Object.keys(usernameErr).map((key) => { return <div style={{ fontSize: 12, color: "red" }}>{usernameErr[key]}</div> })}
             </Form.Group>
             <Form.Group>
               <Form.Label className="form-item">
@@ -133,7 +132,7 @@ export function RegistrationView(props) {
               variant="outline-dark"
               className="button"
               type="button"
-              onClick={handleSubmit}>
+              onClick={handleRegister}>
               Submit
             </Button>
             <Link to={`/`}>

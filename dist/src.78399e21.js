@@ -39466,7 +39466,7 @@ function RegistrationView(props) {
       birthdayErr = _useState16[0],
       setBirthdayErr = _useState16[1];
 
-  var handleSubmit = function handleSubmit(e) {
+  var handleRegister = function handleRegister(e) {
     e.preventDefault();
     var isValid = formValidation();
 
@@ -39526,7 +39526,23 @@ function RegistrationView(props) {
     xs: 12,
     sm: 12,
     className: "form_col"
-  }, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
+  }, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
+    className: "form-item"
+  }, "Username:"), _react.default.createElement(_Form.default.Control, {
+    type: "text",
+    className: "input_box",
+    value: username,
+    onChange: function onChange(e) {
+      return setUsername(e.target.value);
+    }
+  }), Object.keys(usernameErr).map(function (key) {
+    return _react.default.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: "red"
+      }
+    }, usernameErr[key]);
+  })), _react.default.createElement(_Form.default.Group, {
     className: "register_form"
   }, _react.default.createElement(_Form.default.Label, {
     className: "form-item"
@@ -39543,22 +39559,6 @@ function RegistrationView(props) {
         color: "red"
       }
     }, emailErr[key]);
-  })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
-    className: "form-item"
-  }, "Username:"), _react.default.createElement(_Form.default.Control, {
-    type: "text",
-    className: "input_box",
-    value: username,
-    onChange: function onChange(e) {
-      return setUsername(e.target.value);
-    }
-  }), Object.keys(usernameErr).map(function (key) {
-    return _react.default.createElement("div", {
-      style: {
-        fontSize: 12,
-        color: "red"
-      }
-    }, usernameErr[key]);
   })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
     className: "form-item"
   }, "Password:"), _react.default.createElement(_Form.default.Control, {
@@ -39595,7 +39595,7 @@ function RegistrationView(props) {
     variant: "outline-dark",
     className: "button",
     type: "button",
-    onClick: handleSubmit
+    onClick: handleRegister
   }, "Submit"), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, _react.default.createElement(_Button.default, {
@@ -40221,6 +40221,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/login",
+        render: function render() {
+          return _react.default.createElement(_loginView.LoginView, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/register",
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, null);
@@ -40328,7 +40333,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63307" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55743" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
