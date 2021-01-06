@@ -23,8 +23,10 @@ export function RegistrationView(props) {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    //const form = e.currentTarget;
+    //console.log(form);
     const isValid = formValidation();
-    axios.post('https://movie-api11.herokuapp.com/users', {
+    axios.post(`https://movie-api11.herokuapp.com/users`, {
       Username: username,
       Password: password,
       Email: email,
@@ -32,7 +34,7 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
-        //props.onRegister('register');
+        props.onRegister(data);
         console.log(data);
         window.open('/', '_self');
       })
@@ -135,7 +137,7 @@ export function RegistrationView(props) {
               onClick={handleRegister}>
               Submit
             </Button>
-            <Link to={`/`}>
+            <Link to={`/login`}>
               <Button variant="dark" className="back-button" type="button">
                 Back to Login
               </Button>
