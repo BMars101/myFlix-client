@@ -37579,7 +37579,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, ProfileView);
 
-    _this = _super.call(this);
+    _this = _super.call(this, props);
 
     _this.handleUpdate = function (e) {
       var username = localStorage.getItem("user");
@@ -39310,6 +39310,15 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 
       var movie = this.props.movie;
       if (!movie) return null;
+
+      var handleSubmit = function handleSubmit(e) {
+        e.preventDefault();
+
+        _axios.default.post("https://movie-api11.herokuapp.com/users/".concat(username, "/movies/").concat(movie.Title)).then(function (response) {
+          console.log(response);
+        });
+      };
+
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("img", {
@@ -39467,17 +39476,19 @@ function RegistrationView(props) {
       setBirthdayErr = _useState16[1];
 
   var handleRegister = function handleRegister(e) {
-    e.preventDefault();
+    e.preventDefault(); //const form = e.currentTarget;
+    //console.log(form);
+
     var isValid = formValidation();
 
-    _axios.default.post('https://movie-api11.herokuapp.com/users', {
+    _axios.default.post("https://movie-api11.herokuapp.com/users", {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday
     }).then(function (response) {
-      var data = response.data; //props.onRegister('register');
-
+      var data = response.data;
+      props.onRegister(data);
       console.log(data);
       window.open('/', '_self');
     }).catch(function (e) {
@@ -39597,7 +39608,7 @@ function RegistrationView(props) {
     type: "button",
     onClick: handleRegister
   }, "Submit"), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
+    to: "/login"
   }, _react.default.createElement(_Button.default, {
     variant: "dark",
     className: "back-button",
@@ -40333,7 +40344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55743" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61768" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

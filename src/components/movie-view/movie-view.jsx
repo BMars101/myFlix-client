@@ -41,6 +41,15 @@ export class MovieView extends React.Component {
 
     if (!movie) return null;
 
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie.Title}`)
+        .then(response => {
+          console.log(response);
+        })
+    }
+
     return (
       <div className="movie-view">
         <img className="movie-poster" src={movie.ImagePath} />
