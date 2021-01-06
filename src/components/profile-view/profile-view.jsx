@@ -10,7 +10,7 @@ import './profile-view.scss';
 
 export class ProfileView extends React.Component {
   constructor(props) {
-    super();
+    super(props);
 
     this.Username = undefined;
     this.Password = undefined;
