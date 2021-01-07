@@ -137,7 +137,7 @@ export function RegistrationView(props) {
               onClick={handleRegister}>
               Submit
             </Button>
-            <Link to={`/login`}>
+            <Link to={`/`}>
               <Button variant="dark" className="back-button" type="button">
                 Back to Login
               </Button>
