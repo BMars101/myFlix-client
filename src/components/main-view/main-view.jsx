@@ -51,6 +51,16 @@ export class MainView extends React.Component {
     }
   }
 
+  onRegister(authData) {
+    console.log(authData);
+    this.setState({
+      user: authData.user.Username
+    });
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -117,8 +127,7 @@ export class MainView extends React.Component {
                 );
               }}
             />
-            <Route path="/login" render={() => <LoginView />} />
-            <Route path="/register" render={() => <RegistrationView />} />
+            <Route path="/register" render={() => <RegistrationView onRegister={user => this.onRegister(user)} />} />
             <Route path="/users" render={() => <ProfileView />} />
           </div>
         </Router>
