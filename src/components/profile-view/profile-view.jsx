@@ -12,11 +12,6 @@ export class ProfileView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.Username = undefined;
-    this.Password = undefined;
-    this.Email = undefined;
-    this.Birthday = undefined;
-
     this.state = {
       User: null,
       Username: '',
