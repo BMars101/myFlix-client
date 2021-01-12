@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './profile-view.scss';
@@ -11,21 +12,20 @@ import './profile-view.scss';
 export class ProfileView extends React.Component {
   constructor(props) {
     super(props);
+    console.log('constructorprops');
 
     this.state = {
-      User: null,
       Username: '',
       Password: '',
       Email: '',
       Birthday: '',
-      FavoriteMovies: []
+      FavoriteMovies: [],
+      validated: '',
     };
-    console.log('Constructor');
-    console.log(this.Username);
   }
 
 
-  componenetDidMount() {
+  componentDidMount() {
     console.log('here');
     const accessToken = localStorage.getItem("token");
     this.getUser(accessToken);
@@ -95,6 +95,7 @@ export class ProfileView extends React.Component {
       .then(response => {
         const data = response.data;
         window.open("/", "_self");
+        alert('User has been deleted')
       })
       .catch(function (error) {
         console.log(error)
@@ -111,7 +112,7 @@ export class ProfileView extends React.Component {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
 
-    axios.delete(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie}`,
+    axios.delete(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
 
@@ -145,11 +146,11 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies } = this.props;
+    const { movie } = this.props;
 
-    const Username = this.state.Username;
-    const Email = this.state.Email;
-    const Birthday = this.state.Birthday;
+    // const Username = this.state.Username;
+    // const Email = this.state.Email;
+    // const Birthday = this.state.Birthday;
     const FavoriteMovies = this.state.FavoriteMovies;
     console.log(this.state);
 
@@ -157,23 +158,6 @@ export class ProfileView extends React.Component {
       <div className="profile-view">
         <Container className="profile-container">
           <CardGroup>
-            <Card>
-              <Card.Header as="h3">User Profile</Card.Header>
-              <Card.Body>
-                <Card.Text className="card-text">
-                  Username: {Username}
-                </Card.Text>
-                <Card.Text className="card-text">
-                  Email: {Email}
-                </Card.Text>
-                <Card.Text className="card-text">
-                  Birthday: {Birthday}
-                </Card.Text>
-                <Button variant="danger" className="delete-button" onClick={() => this.handleDeregister()}>
-                  Delete User
-                </Button>
-              </Card.Body>
-            </Card>
             <Card className="update-user-card">
               <Card.Header as="h3">Update User Profile</Card.Header>
               <Card.Body>
@@ -216,6 +200,9 @@ export class ProfileView extends React.Component {
                 <Button variant="dark" className="update-button" onClick={() => this.handleUpdate()}>
                   Update
                   </Button>
+                <Button variant="danger" className="delete-button" onClick={() => this.handleDeregister()}>
+                  Delete User
+                </Button>
               </Card.Body>
               <Link to={`/`}>
                 <Button variant="dark" style={{ margin: "15px" }} className="back-button">
@@ -229,11 +216,11 @@ export class ProfileView extends React.Component {
                 {FavoriteMovies.length === 0 && <div>Add Favorites</div>}
                 <div>
                   <ul>
-                    {FavoriteMovies.length > 0 && movies.map((movie) => {
+                    {FavoriteMovies.length > 0 && FavoriteMovies.map((movie) => {
                       if (movie._id === FavoriteMovies.find((FavoriteMovie) => FavoriteMovie === movie._id)
                       ) {
                         return (
-                          <li className="favorite-item" key={movie._id}>
+                          <li key={movie._id} className="favorite-item" >
                             {movie.Title}
                             <Button
                               variant="outline-dark"
@@ -254,4 +241,16 @@ export class ProfileView extends React.Component {
       </div >
     )
   }
+};
+
+ProfileView.propTypes = {
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    FavoriteMovies: PropTypes.array,
+  }),
+  movie: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string,
+    })
+  )
 };
