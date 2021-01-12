@@ -14,57 +14,57 @@ export class MovieView extends React.Component {
     };
   }
 
-  addToFavorites(movieID) {
-    const username = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-    console.log(movieID);
+  // addToFavorites(movieID) {
+  //   const username = localStorage.getItem("user");
+  //   const token = localStorage.getItem("token");
+  //   console.log(movieID);
 
-    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
-    },
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    )
-      .then(response => {
-        console.log(response.data.FavoriteMovies);
-        this.setState({
-          FavoriteMovies: response.data.FavoriteMovies
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    alert("movie added to movie list")
-  }
+  //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
+  //   },
+  //     {
+  //       headers: { Authorization: `Bearer ${token}` }
+  //     }
+  //   )
+  //     .then(response => {
+  //       console.log(response.data.FavoriteMovies);
+  //       this.setState({
+  //         FavoriteMovies: response.data.FavoriteMovies
+  //       });
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  //   alert("movie added to movie list")
+  // }
 
   render() {
     const { movie } = this.props;
 
     if (!movie) return null;
 
-    // const handleSubmit = (e) => {
-    //   e.preventDefault();
-    //   let movieItem = [];
-    //   movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
-    //   if (movieItem.includes(movie.Title)) {
-    //     alert('Movie already added to list');
-    //     return;
-    //   }
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      let movieItem = [];
+      movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
+      if (movieItem.includes(movie.Title)) {
+        alert('Movie already added to list');
+        return;
+      }
 
-    //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`)
-    //     .then(response => {
-    //       console.log(response);
-    //       movieItem.push(movie._id);
-    //       localStorage.setItem(
-    //         'FavoriteMovies',
-    //         JSON.stringify(movieItem)
-    //       );
-    //       alert('Movie added to list');
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // };
+      axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`)
+        .then(response => {
+          console.log(response);
+          movieItem.push(movie._id);
+          localStorage.setItem(
+            'FavoriteMovies',
+            JSON.stringify(movieItem)
+          );
+          alert('Movie added to list');
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
 
     return (
       <div className="movie-view">
@@ -92,7 +92,7 @@ export class MovieView extends React.Component {
           </Link>
         </div>
         <div>
-          <Button variant="dark" className="favorite-button" onClick={() => this.addToFavorites(movie._id)}>
+          <Button variant="dark" className="favorite-button" onClick={(e) => handleSubmit(e)}>
             Add to Favorites
           </Button>
         </div>

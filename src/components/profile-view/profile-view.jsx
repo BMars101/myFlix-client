@@ -212,7 +212,7 @@ export class ProfileView extends React.Component {
             </Card>
             <Card className="favorites-list">
               <Card.Header as="h3">Favorite Movie List</Card.Header>
-              <Card.Body>
+              {/* <Card.Body>
                 {FavoriteMovies.length === 0 && <div>Add Favorites</div>}
                 <div>
                   <ul>
@@ -234,7 +234,7 @@ export class ProfileView extends React.Component {
                     })}
                   </ul>
                 </div>
-              </Card.Body>
+              </Card.Body> */}
             </Card>
           </CardGroup>
         </Container >
