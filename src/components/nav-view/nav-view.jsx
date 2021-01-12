@@ -32,12 +32,10 @@ export class NavView extends React.Component {
               User Profile
             </Button>
           </Link>
-          <Link to='/logout'>
-            <Button variant="link" className="logout-button"
-              onClick={() => this.onLoggedOut()}>
-              Logout
+          <Button variant="link" className="logout-button"
+            onClick={() => this.onLoggedOut()}>
+            Logout
               </Button>
-          </Link>
         </Nav>
         <Route path="/users" render={() => <ProfileView />} />
       </Router>
