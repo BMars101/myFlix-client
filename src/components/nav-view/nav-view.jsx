@@ -27,7 +27,7 @@ export class NavView extends React.Component {
         <Nav className='nav-view'>
           <h3>MyFlix</h3>
 
-          <Link to={`/users`}>
+          <Link to={`/users/:username`}>
             <Button variant="link" className="profile-button">
               User Profile
             </Button>
