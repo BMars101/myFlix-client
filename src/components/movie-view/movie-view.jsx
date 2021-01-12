@@ -14,18 +14,19 @@ export class MovieView extends React.Component {
     };
   }
 
-  addToFavorites(movie) {
+  addToFavorites(movieID) {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
+    console.log(movieID);
 
-    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie}`, {
-      FavoriteMovies: this.FavoriteMovies
+    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
     },
       {
         headers: { Authorization: `Bearer ${token}` }
       }
     )
       .then(response => {
+        console.log(response.data.FavoriteMovies);
         this.setState({
           FavoriteMovies: response.data.FavoriteMovies
         });
@@ -41,14 +42,29 @@ export class MovieView extends React.Component {
 
     if (!movie) return null;
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+    // const handleSubmit = (e) => {
+    //   e.preventDefault();
+    //   let movieItem = [];
+    //   movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
+    //   if (movieItem.includes(movie.Title)) {
+    //     alert('Movie already added to list');
+    //     return;
+    //   }
 
-      axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie.Title}`)
-        .then(response => {
-          console.log(response);
-        })
-    }
+    //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`)
+    //     .then(response => {
+    //       console.log(response);
+    //       movieItem.push(movie._id);
+    //       localStorage.setItem(
+    //         'FavoriteMovies',
+    //         JSON.stringify(movieItem)
+    //       );
+    //       alert('Movie added to list');
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // };
 
     return (
       <div className="movie-view">
