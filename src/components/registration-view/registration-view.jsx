@@ -34,8 +34,6 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
-        props.onRegister(data);
-        console.log(data);
         window.open('/', '_self');
       })
       .catch(e => {
