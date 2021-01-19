@@ -44,8 +44,7 @@ export class MovieView extends React.Component {
     const token = localStorage.getItem("token");
     console.log(movieID);
 
-    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
-    },
+    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`,
       {
         headers: { Authorization: `Bearer ${token}` }
       }
@@ -63,33 +62,39 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie } = this.props;
+    const { movie, user: username } = this.props;
 
     if (!movie) return null;
 
-    //   const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     let movieItem = [];
-    //     movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
-    //     if (movieItem.includes(movie.Title)) {
-    //       alert('Movie already added to list');
-    //       return;
-    //     }
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      let movieItem = JSON.parse(localStorage.getItem('FavoriteMovies')) || [];
+      if (movieItem.includes(movie._id)) {
+        alert('Movie already added to list');
+        return;
+      }
 
-    //     axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`)
-    //       .then(response => {
-    //         console.log(response);
-    //         movieItem.push(movie._id);
-    //         localStorage.setItem(
-    //           'FavoriteMovies',
-    //           JSON.stringify(movieItem)
-    //         );
-    //         alert('Movie added to list');
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    //   };
+      const token = localStorage.getItem("token");
+      axios(
+        {
+          method: "post",
+          url: `https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`,
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      )
+        .then(response => {
+          console.log(response);
+          movieItem.push(movie._id);
+          localStorage.setItem(
+            'FavoriteMovies',
+            JSON.stringify(movieItem)
+          );
+          alert('Movie added to list');
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
 
     return (
       <div className="movie-view">

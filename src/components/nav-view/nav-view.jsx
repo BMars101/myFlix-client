@@ -23,22 +23,17 @@ export class NavView extends React.Component {
 
   render() {
     return (
-      <Router>
-        <Nav className='nav-view'>
-          <h3>MyFlix</h3>
+      <Nav className='nav-view'>
+        <h3>MyFlix</h3>
 
-          <Link to={`/users/:username`}>
-            <Button variant="link" className="profile-button">
-              User Profile
-            </Button>
-          </Link>
-          <Button variant="link" className="logout-button"
-            onClick={() => this.onLoggedOut()}>
-            Logout
-              </Button>
-        </Nav>
-        <Route path="/users" render={() => <ProfileView />} />
-      </Router>
+        <Button onClick={e => window.location.pathname = "/user"} variant="link" className="profile-button">
+          User Profile
+        </Button>
+        <Button variant="link" className="logout-button"
+                onClick={() => this.onLoggedOut()}>
+          Logout
+        </Button>
+      </Nav>
     );
   }
 }

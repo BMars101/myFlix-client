@@ -43,7 +43,7 @@ export class MainView extends React.Component {
     })
       .then(response => {
         this.setState({
-          movies: response.data
+        movies: response.data
         });
       })
       .catch(function (error) {
@@ -101,6 +101,16 @@ export class MainView extends React.Component {
               render={({ match }) =>
                 <MovieView
                   movie={movies.find(m => m._id === match.params.movieId)}
+                  user={user}
+                />
+              }
+            />
+            <Route
+              exact path="/user"
+              render={() =>
+                <ProfileView
+                  movies={movies}
+                  user={user}
                 />
               }
             />
@@ -128,7 +138,8 @@ export class MainView extends React.Component {
               render={() =>
                 <RegistrationView
                   onRegister={user =>
-                    this.onRegister(user)} />} />
+                    this.onRegister(user)} />}
+            />
           </div>
         </Router>
       </div >
