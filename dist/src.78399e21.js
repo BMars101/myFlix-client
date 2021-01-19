@@ -39274,54 +39274,83 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       FavoriteMovies: []
     };
     return _this;
-  } // addToFavorites(movieID) {
-  //   const username = localStorage.getItem("user");
-  //   const token = localStorage.getItem("token");
-  //   console.log(movieID);
-  //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
-  //   },
-  //     {
-  //       headers: { Authorization: `Bearer ${token}` }
-  //     }
-  //   )
-  //     .then(response => {
-  //       console.log(response.data.FavoriteMovies);
-  //       this.setState({
-  //         FavoriteMovies: response.data.FavoriteMovies
-  //       });
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  //   alert("movie added to movie list")
-  // }
-
+  }
 
   _createClass(MovieView, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e, movieID) {
+      var _this2 = this;
+
+      e.preventDefault();
+      var username = localStorage.getItem('user');
+      var token = localStorage.getItem('token');
+      console.log(movieID);
+      var url = "https://movie-api11.herokuapp.com/users/".concat(username, "/movies/").concat(movie._id);
+
+      _axios.default.post(url, {}, {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        var favoriteMoviesArray = response.data.FavoriteMovies;
+        console.log(favoriteMoviesArray);
+
+        _this2.setState({
+          FavoriteMovies: favoriteMoviesArray
+        });
+      }).catch(function (error) {
+        console.log(error);
+      }).finally(function () {
+        alert("movie added to movie list");
+      });
+    } // addToFavorites(movieID) {
+    //   const username = localStorage.getItem("user");
+    //   const token = localStorage.getItem("token");
+    //   console.log(movieID);
+    //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
+    //   },
+    //     {
+    //       headers: { Authorization: `Bearer ${token}` }
+    //     }
+    //   )
+    //     .then(response => {
+    //       console.log(response.data.FavoriteMovies);
+    //       this.setState({
+    //         FavoriteMovies: response.data.FavoriteMovies
+    //       });
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    //   alert("movie added to movie list")
+    // }
+
+  }, {
     key: "render",
     value: function render() {
       var movie = this.props.movie;
-      if (!movie) return null;
-
-      var handleSubmit = function handleSubmit(e) {
-        e.preventDefault();
-        var movieItem = [];
-        movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
-
-        if (movieItem.includes(movie.Title)) {
-          alert('Movie already added to list');
-          return;
-        }
-
-        _axios.default.post("https://movie-api11.herokuapp.com/users/".concat(username, "/movies/").concat(movie._id)).then(function (response) {
-          console.log(response);
-          movieItem.push(movie._id);
-          localStorage.setItem('FavoriteMovies', JSON.stringify(movieItem));
-          alert('Movie added to list');
-        }).catch(function (error) {
-          console.log(error);
-        });
-      };
+      if (!movie) return null; //   const handleSubmit = (e) => {
+      //     e.preventDefault();
+      //     let movieItem = [];
+      //     movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
+      //     if (movieItem.includes(movie.Title)) {
+      //       alert('Movie already added to list');
+      //       return;
+      //     }
+      //     axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`)
+      //       .then(response => {
+      //         console.log(response);
+      //         movieItem.push(movie._id);
+      //         localStorage.setItem(
+      //           'FavoriteMovies',
+      //           JSON.stringify(movieItem)
+      //         );
+      //         alert('Movie added to list');
+      //       })
+      //       .catch(function (error) {
+      //         console.log(error);
+      //       });
+      //   };
 
       return _react.default.createElement("div", {
         className: "movie-view"
@@ -39364,7 +39393,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         variant: "dark",
         className: "favorite-button",
         onClick: function onClick(e) {
-          return handleSubmit(e);
+          return handleSubmit(e, movie._id);
         }
       }, "Add to Favorites")), _react.default.createElement("br", null), _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
         to: '/'
@@ -40350,7 +40379,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64658" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53037" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

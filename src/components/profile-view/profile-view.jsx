@@ -146,6 +146,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
+
     const { movie } = this.props;
 
     // const Username = this.state.Username;

@@ -14,53 +14,53 @@ export class MovieView extends React.Component {
     };
   }
 
-  handleSubmit(e, movieID) {
-    e.preventDefault();
-    const username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    console.log(movieID)
+  // handleSubmit(e, movieID) {
+  //   e.preventDefault();
+  //   const username = localStorage.getItem('user');
+  //   const token = localStorage.getItem('token');
+  //   console.log(movieID)
 
-    const url = `https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`;
-    axios.post(url, {},
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    )
-      .then(response => {
-        const favoriteMoviesArray = response.data.FavoriteMovies
-        console.log(favoriteMoviesArray)
-        this.setState({
-          FavoriteMovies: favoriteMoviesArray
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      }).finally(() => {
-        alert("movie added to movie list")
-      });
-  }
-  // addToFavorites(movieID) {
-  //   const username = localStorage.getItem("user");
-  //   const token = localStorage.getItem("token");
-  //   console.log(movieID);
-
-  //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
-  //   },
+  //   const url = `https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`;
+  //   axios.post(url, {},
   //     {
   //       headers: { Authorization: `Bearer ${token}` }
   //     }
   //   )
   //     .then(response => {
-  //       console.log(response.data.FavoriteMovies);
+  //       const favoriteMoviesArray = response.data.FavoriteMovies
+  //       console.log(favoriteMoviesArray)
   //       this.setState({
-  //         FavoriteMovies: response.data.FavoriteMovies
+  //         FavoriteMovies: favoriteMoviesArray
   //       });
   //     })
-  //     .catch(function (error) {
+  //     .catch(error => {
   //       console.log(error);
+  //     }).finally(() => {
+  //       alert("movie added to movie list")
   //     });
-  //   alert("movie added to movie list")
   // }
+  addToFavorites(movieID) {
+    const username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+    console.log(movieID);
+
+    axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
+    },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+      .then(response => {
+        console.log(response.data.FavoriteMovies);
+        this.setState({
+          FavoriteMovies: response.data.FavoriteMovies
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    alert("movie added to movie list")
+  }
 
   render() {
     const { movie } = this.props;
