@@ -37637,7 +37637,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       Email: '',
       Birthday: '',
       FavoriteMovies: [],
-      validated: ''
+      validated: '',
+      user: null
     };
     return _this;
   }
@@ -37645,10 +37646,19 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   _createClass(ProfileView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('here');
-      var accessToken = localStorage.getItem("token");
-      this.getUser(accessToken);
-    }
+      var accessToken = localStorage.getItem('token');
+
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        }); //this.getMovies(accessToken);
+      }
+    } // componentDidMount() {
+    //   console.log('here');
+    //   const accessToken = localStorage.getItem("token");
+    //   this.getUser(accessToken);
+    // }
+
   }, {
     key: "getUser",
     value: function getUser(token) {
@@ -37723,12 +37733,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      var movie = this.props.movie; // const Username = this.state.Username;
+      var movies = this.props.movies; // const Username = this.state.Username;
       // const Email = this.state.Email;
       // const Birthday = this.state.Birthday;
 
       var FavoriteMovies = this.state.FavoriteMovies;
-      console.log(this.state);
+      console.log(movies);
       return _react.default.createElement("div", {
         className: "profile-view"
       }, _react.default.createElement(_Container.default, {
@@ -37797,21 +37807,20 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "favorites-list"
       }, _react.default.createElement(_Card.default.Header, {
         as: "h3"
-      }, "Favorite Movie List"), _react.default.createElement(_Card.default.Body, null, FavoriteMovies.length === 0 && _react.default.createElement("div", null, "Add Favorites"), _react.default.createElement("div", null, _react.default.createElement("ul", null, FavoriteMovies.length > 0 && FavoriteMovies.map(function (movie) {
-        if (movie._id === FavoriteMovies.find(function (FavoriteMovie) {
-          return FavoriteMovie === movie._id;
-        })) {
-          return _react.default.createElement("li", {
-            key: movie._id,
-            className: "favorite-item"
-          }, movie.Title, _react.default.createElement(_Button.default, {
-            variant: "outline-dark",
-            className: "remove-item",
-            onClick: function onClick() {
-              return _this4.removeItem(movie._id);
-            }
-          }, "Remove Movie"));
-        }
+      }, "Favorite Movie List"), _react.default.createElement(_Card.default.Body, null, FavoriteMovies.length === 0 && _react.default.createElement("div", null, "Add Favorites"), _react.default.createElement("div", null, _react.default.createElement("ul", null, FavoriteMovies.length > 0 && FavoriteMovies.map(function (movieID) {
+        var movie = movies.find(function (movie) {
+          return movie._id === movieID;
+        });
+        return _react.default.createElement("li", {
+          key: movie._id,
+          className: "favorite-item"
+        }, movie.Title, _react.default.createElement(_Button.default, {
+          variant: "outline-dark",
+          className: "remove-item",
+          onClick: function onClick() {
+            return _this4.removeItem(movie._id);
+          }
+        }, "Remove Movie"));
       }))))))));
     }
   }]);
@@ -39083,25 +39092,21 @@ var NavView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Nav.default, {
+      return _react.default.createElement(_Nav.default, {
         className: "nav-view"
-      }, _react.default.createElement("h3", null, "MyFlix"), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/users/:username"
-      }, _react.default.createElement(_Button.default, {
+      }, _react.default.createElement("h3", null, "MyFlix"), _react.default.createElement(_Button.default, {
+        onClick: function onClick(e) {
+          return window.location.pathname = "/user";
+        },
         variant: "link",
         className: "profile-button"
-      }, "User Profile")), _react.default.createElement(_Button.default, {
+      }, "User Profile"), _react.default.createElement(_Button.default, {
         variant: "link",
         className: "logout-button",
         onClick: function onClick() {
           return _this2.onLoggedOut();
         }
-      }, "Logout")), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/users",
-        render: function render() {
-          return _react.default.createElement(_profileView.ProfileView, null);
-        }
-      }));
+      }, "Logout"));
     }
   }]);
 
@@ -39274,83 +39279,90 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       FavoriteMovies: []
     };
     return _this;
-  }
+  } // handleSubmit(e, movieID) {
+  //   e.preventDefault();
+  //   const username = localStorage.getItem('user');
+  //   const token = localStorage.getItem('token');
+  //   console.log(movieID)
+  //   const url = `https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`;
+  //   axios.post(url, {},
+  //     {
+  //       headers: { Authorization: `Bearer ${token}` }
+  //     }
+  //   )
+  //     .then(response => {
+  //       const favoriteMoviesArray = response.data.FavoriteMovies
+  //       console.log(favoriteMoviesArray)
+  //       this.setState({
+  //         FavoriteMovies: favoriteMoviesArray
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     }).finally(() => {
+  //       alert("movie added to movie list")
+  //     });
+  // }
+
 
   _createClass(MovieView, [{
-    key: "handleSubmit",
-    value: function handleSubmit(e, movieID) {
+    key: "addToFavorites",
+    value: function addToFavorites(movieID) {
       var _this2 = this;
 
-      e.preventDefault();
-      var username = localStorage.getItem('user');
-      var token = localStorage.getItem('token');
+      var username = localStorage.getItem("user");
+      var token = localStorage.getItem("token");
       console.log(movieID);
-      var url = "https://movie-api11.herokuapp.com/users/".concat(username, "/movies/").concat(movie._id);
 
-      _axios.default.post(url, {}, {
+      _axios.default.post("https://movie-api11.herokuapp.com/users/".concat(username, "/movies/").concat(movie._id), {}, {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        var favoriteMoviesArray = response.data.FavoriteMovies;
-        console.log(favoriteMoviesArray);
+        console.log(response.data.FavoriteMovies);
 
         _this2.setState({
-          FavoriteMovies: favoriteMoviesArray
+          FavoriteMovies: response.data.FavoriteMovies
         });
       }).catch(function (error) {
         console.log(error);
-      }).finally(function () {
-        alert("movie added to movie list");
       });
-    } // addToFavorites(movieID) {
-    //   const username = localStorage.getItem("user");
-    //   const token = localStorage.getItem("token");
-    //   console.log(movieID);
-    //   axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`, {
-    //   },
-    //     {
-    //       headers: { Authorization: `Bearer ${token}` }
-    //     }
-    //   )
-    //     .then(response => {
-    //       console.log(response.data.FavoriteMovies);
-    //       this.setState({
-    //         FavoriteMovies: response.data.FavoriteMovies
-    //       });
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    //   alert("movie added to movie list")
-    // }
 
+      alert("movie added to movie list");
+    }
   }, {
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
-      if (!movie) return null; //   const handleSubmit = (e) => {
-      //     e.preventDefault();
-      //     let movieItem = [];
-      //     movieItem = JSON.parse(localStorage.getItem('FavoriteMovies'));
-      //     if (movieItem.includes(movie.Title)) {
-      //       alert('Movie already added to list');
-      //       return;
-      //     }
-      //     axios.post(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`)
-      //       .then(response => {
-      //         console.log(response);
-      //         movieItem.push(movie._id);
-      //         localStorage.setItem(
-      //           'FavoriteMovies',
-      //           JSON.stringify(movieItem)
-      //         );
-      //         alert('Movie added to list');
-      //       })
-      //       .catch(function (error) {
-      //         console.log(error);
-      //       });
-      //   };
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          username = _this$props.user;
+      if (!movie) return null;
+
+      var handleSubmit = function handleSubmit(e) {
+        e.preventDefault();
+        var movieItem = JSON.parse(localStorage.getItem('FavoriteMovies')) || [];
+
+        if (movieItem.includes(movie._id)) {
+          alert('Movie already added to list');
+          return;
+        }
+
+        var token = localStorage.getItem("token");
+        (0, _axios.default)({
+          method: "post",
+          url: "https://movie-api11.herokuapp.com/users/".concat(username, "/movies/").concat(movie._id),
+          headers: {
+            Authorization: "Bearer ".concat(token)
+          }
+        }).then(function (response) {
+          console.log(response);
+          movieItem.push(movie._id);
+          localStorage.setItem('FavoriteMovies', JSON.stringify(movieItem));
+          alert('Movie added to list');
+        }).catch(function (error) {
+          console.log(error);
+        });
+      };
 
       return _react.default.createElement("div", {
         className: "movie-view"
@@ -39413,7 +39425,8 @@ MovieView.propTypes = {
     Title: _propTypes.default.string.isRequired,
     Description: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired
-  })
+  }),
+  user: _propTypes.default.object
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -40239,7 +40252,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           return _react.default.createElement(_movieView.MovieView, {
             movie: movies.find(function (m) {
               return m._id === match.params.movieId;
-            })
+            }),
+            user: user
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/user",
+        render: function render() {
+          return _react.default.createElement(_profileView.ProfileView, {
+            movies: movies,
+            user: user
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -40289,6 +40312,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
+MainView.propTypes = {
+  user: _propTypes.default.object
+};
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/CardColumns":"../node_modules/react-bootstrap/esm/CardColumns.js","./main-view.scss":"components/main-view/main-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../nav-view/nav-view":"components/nav-view/nav-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -40379,7 +40405,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53037" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57261" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
