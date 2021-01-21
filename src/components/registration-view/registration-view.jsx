@@ -59,6 +59,11 @@ export function RegistrationView(props) {
       isValid = false;
     }
 
+    if (username.trim().length < 5) {
+      usernameErr.usernameShort = "Username must be at least 5 characters"
+      isValid = false;
+    }
+
     if (password.trim().length < 5) {
       passwordErr.passwordTooShort = "Password must be at least 5 characters";
       isValid = false;
