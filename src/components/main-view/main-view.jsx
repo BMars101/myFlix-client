@@ -101,6 +101,16 @@ export class MainView extends React.Component {
               render={({ match }) =>
                 <MovieView
                   movie={movies.find(m => m._id === match.params.movieId)}
+                  user={user}
+                />
+              }
+            />
+            <Route
+              exact path="/user"
+              render={() =>
+                <ProfileView
+                  movies={movies}
+                  user={user}
                 />
               }
             />
@@ -128,7 +138,8 @@ export class MainView extends React.Component {
               render={() =>
                 <RegistrationView
                   onRegister={user =>
-                    this.onRegister(user)} />} />
+                    this.onRegister(user)} />}
+            />
           </div>
         </Router>
       </div >
@@ -136,3 +147,6 @@ export class MainView extends React.Component {
   }
 }
 
+MainView.propTypes = {
+  user: PropTypes.object
+}
