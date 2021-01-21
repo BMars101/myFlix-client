@@ -21,15 +21,26 @@ export class ProfileView extends React.Component {
       Birthday: '',
       FavoriteMovies: [],
       validated: '',
+      user: null
     };
   }
 
-
   componentDidMount() {
-    console.log('here');
-    const accessToken = localStorage.getItem("token");
-    this.getUser(accessToken);
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      //this.getMovies(accessToken);
+    }
   }
+
+
+  // componentDidMount() {
+  //   console.log('here');
+  //   const accessToken = localStorage.getItem("token");
+  //   this.getUser(accessToken);
+  // }
 
   getUser(token) {
     const username = localStorage.getItem("user");
@@ -147,13 +158,13 @@ export class ProfileView extends React.Component {
 
   render() {
 
-    const { movie } = this.props;
+    const { movies } = this.props;
 
     // const Username = this.state.Username;
     // const Email = this.state.Email;
     // const Birthday = this.state.Birthday;
     const FavoriteMovies = this.state.FavoriteMovies;
-    console.log(this.state);
+    console.log(movies);
 
     return (
       <div className="profile-view">
@@ -217,21 +228,19 @@ export class ProfileView extends React.Component {
                 {FavoriteMovies.length === 0 && <div>Add Favorites</div>}
                 <div>
                   <ul>
-                    {FavoriteMovies.length > 0 && FavoriteMovies.map((movie) => {
-                      if (movie._id === FavoriteMovies.find((FavoriteMovie) => FavoriteMovie === movie._id)
-                      ) {
-                        return (
-                          <li key={movie._id} className="favorite-item" >
-                            {movie.Title}
-                            <Button
-                              variant="outline-dark"
-                              className="remove-item"
-                              onClick={() => this.removeItem(movie._id)}>
-                              Remove Movie
+                    {FavoriteMovies.length > 0 && FavoriteMovies.map((movieID) => {
+                      const movie = movies.find(movie => movie._id === movieID);
+                      return (
+                        <li key={movie._id} className="favorite-item" >
+                          {movie.Title}
+                          <Button
+                            variant="outline-dark"
+                            className="remove-item"
+                            onClick={() => this.removeItem(movie._id)}>
+                            Remove Movie
                         </Button>
-                          </li>
-                        );
-                      }
+                        </li>
+                      );
                     })}
                   </ul>
                 </div>
