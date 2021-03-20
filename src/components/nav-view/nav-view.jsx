@@ -26,22 +26,23 @@ export class NavView extends React.Component {
       <Nav className='nav-view'>
         <h3
           onClick={e => window.location.pathname = "/"}
-          mouseOver=""
           style={{ cursor: "pointer" }}
         >MyFlix</h3>
         <Button
           onClick={e => window.location.pathname = "/user"}
-          variant="link"
-          className="profile-button">
+          variant="outline-*"
+          className="profile-button"
+          style={{ color: "white" }}>
           User Profile
         </Button>
         <Button
-          variant="link"
+          variant="outline-*"
           className="logout-button"
-          onClick={() => this.onLoggedOut()}>
+          onClick={() => this.onLoggedOut()}
+          style={{ color: "white" }}>
           Logout
         </Button>
-      </Nav>
+      </Nav >
     );
   }
 }

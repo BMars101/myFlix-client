@@ -100,7 +100,8 @@ export class MainView extends React.Component {
               exact path="/movies/:movieId"
               render={({ match }) =>
                 <MovieView
-                  movie={movies.find(m => m._id === match.params.movieId)}
+                  // movie={movies.find(m => m._id === match.params.movieId)}
+                  movies={movies}
                   user={user}
                 />
               }
@@ -148,5 +149,7 @@ export class MainView extends React.Component {
 }
 
 MainView.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.shape({
+    username: PropTypes.string
+  })
 }

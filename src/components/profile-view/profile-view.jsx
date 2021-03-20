@@ -31,7 +31,7 @@ export class ProfileView extends React.Component {
       this.setState({
         user: localStorage.getItem('user')
       });
-      //this.getMovies(accessToken);
+      //this.getUser(accessToken)
     }
   }
 
@@ -119,7 +119,7 @@ export class ProfileView extends React.Component {
     localStorage.removeItem("token");
   };
 
-  removeItem(movie) {
+  removeItem(movieID) {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
 
@@ -261,6 +261,7 @@ ProfileView.propTypes = {
   movie: PropTypes.arrayOf(
     PropTypes.shape({
       Title: PropTypes.string,
+      _id: PropTypes.number
     })
   )
 };
