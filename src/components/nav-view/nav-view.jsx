@@ -24,7 +24,11 @@ export class NavView extends React.Component {
   render() {
     return (
       <Nav className='nav-view'>
-        <h3>MyFlix</h3>
+        <h3
+          onClick={e => window.location.pathname = "/"}
+          mouseOver=""
+          style={{ cursor: "pointer" }}
+        >MyFlix</h3>
         <Button
           onClick={e => window.location.pathname = "/user"}
           variant="link"
