@@ -15,31 +15,20 @@ export class MovieView extends React.Component {
     console.log(this.state);
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let movieItem = JSON.parse(localStorage.getItem('FavoriteMovies')) || [];
-    if (movieItem.includes(movie._id)) {
-      alert('Movie already added to list');
-      return;
-    }
-
+  handleSubmit = (username, movieID) => {
+  
     const token = localStorage.getItem("token");
 
-    axios(
+     return axios(
       {
         method: "post",
-        url: `https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`,
+        url: `https://movie-api11.herokuapp.com/users/${username}/movies/${movieID}`,
         headers: { Authorization: `Bearer ${token}` }
       }
     )
       .then(response => {
-        console.log(response);
-        movieItem.push(movie._id);
-        localStorage.setItem(
-          'FavoriteMovies',
-          JSON.stringify(movieItem)
-        );
         alert('Movie added to list');
+        return response.data;
       })
       .catch(function (error) {
         console.log(error);
@@ -49,7 +38,7 @@ export class MovieView extends React.Component {
 
 
   render() {
-    const { movie, user: username } = this.props;
+    const { movie, user, handleFavoriteMovie } = this.props;
 
     if (!movie) return null;
 
@@ -81,7 +70,7 @@ export class MovieView extends React.Component {
         </div>
         <div>
           <Button variant="dark" className="favorite-button" onClick=
-            {(e) => this.handleSubmit(e, movie._id)}>
+            {(e) => this.handleSubmit(user.Username, movie._id).then((user) => handleFavoriteMovie(user))}>
             Add to Favorites
           </Button>
         </div>

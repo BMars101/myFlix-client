@@ -30,9 +30,8 @@ export class MainView extends React.Component {
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
+      const username = localStorage.getItem('user');
+      this.getUser(username, accessToken);
       this.getMovies(accessToken);
     }
   }
@@ -51,10 +50,28 @@ export class MainView extends React.Component {
       });
   }
 
+  getUser(username, token) {
+ 
+
+    axios.get(`https://movie-api11.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        this.setState({
+          user: response.data
+        });
+        console.log('getResponse')
+        console.log(this.Username)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user.Username
+      user: authData.user
     });
 
     localStorage.setItem('token', authData.token);
@@ -65,7 +82,7 @@ export class MainView extends React.Component {
   onRegister(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user.Username
+      user: authData.user
     });
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
@@ -77,7 +94,8 @@ export class MainView extends React.Component {
     const { movies, user } = this.state;
 
 
-    if (!movies) return <div className="main-view" />;
+    
+    if(movies.length === 0 || !user) return <div>Loading...</div>;
 
     return (
       <div>
@@ -100,9 +118,10 @@ export class MainView extends React.Component {
               exact path="/movies/:movieId"
               render={({ match }) =>
                 <MovieView
-                  // movie={movies.find(m => m._id === match.params.movieId)}
-                  movies={movies}
+                  movie={movies.find(m => m._id === match.params.movieId)}
+                  //movies={movies}
                   user={user}
+                  handleFavoriteMovie={(user) => {this.setState({user: user})}}
                 />
               }
             />
@@ -112,6 +131,7 @@ export class MainView extends React.Component {
                 <ProfileView
                   movies={movies}
                   user={user}
+                  handleFavoriteMovie={(user) => {this.setState({user: user})}}
                 />
               }
             />

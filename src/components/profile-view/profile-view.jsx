@@ -25,47 +25,12 @@ export class ProfileView extends React.Component {
     };
   }
 
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      //this.getUser(accessToken)
-    }
-  }
-
 
   // componentDidMount() {
   //   console.log('here');
   //   const accessToken = localStorage.getItem("token");
   //   this.getUser(accessToken);
   // }
-
-  getUser(token) {
-    const username = localStorage.getItem("user");
-    console.log('getUsertoken')
-    console.log(username)
-
-
-    axios.get(`https://movie-api11.herokuapp.com/users/${username}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        this.setState({
-          Username: response.data.Username,
-          Password: response.data.Password,
-          Email: response.data.Email,
-          Birthday: response.data.Birthday,
-          FavoriteMovies: response.data.FavoriteMovies
-        });
-        console.log('getResponse')
-        console.log(this.Username)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
 
 
@@ -123,17 +88,13 @@ export class ProfileView extends React.Component {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
 
-    axios.delete(`https://movie-api11.herokuapp.com/users/${username}/movies/${movie._id}`,
+    return axios.delete(`https://movie-api11.herokuapp.com/users/${username}/movies/${movieID}`,
       {
-        headers: { Authorization: `Bearer ${token}` },
-
-        FavoriteMovies: this.FavoriteMovies,
+        headers: { Authorization: `Bearer ${token}` }
       }
     )
       .then(response => {
-        this.setState({
-          FavoriteMovies: response.data.FavoriteMovies,
-        });
+        return response.data
       })
       .catch(function (error) {
         console.log(error);
@@ -158,12 +119,12 @@ export class ProfileView extends React.Component {
 
   render() {
 
-    const { movies } = this.props;
+    const { movies, user, handleFavoriteMovie } = this.props;
 
     // const Username = this.state.Username;
     // const Email = this.state.Email;
     // const Birthday = this.state.Birthday;
-    const FavoriteMovies = this.state.FavoriteMovies;
+    const FavoriteMovies = user.FavoriteMovies;
     console.log(movies);
 
     return (
@@ -178,7 +139,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="text"
                     name="username"
-                    value={this.Username}
+                    value={user.Username}
                     onChange={(e) => this.setUsername(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
@@ -186,7 +147,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="password"
                     name="password"
-                    value={this.Password}
+                    value={''}
                     onChange={(e) => this.setPassword(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
@@ -196,7 +157,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="email"
                     name="email"
-                    value={this.Email}
+                    value={user.Email}
                     onChange={(e) => this.setEmail(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
@@ -206,7 +167,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type="date"
                     name="birthday"
-                    value={this.Birthday}
+                    value={user.Birthday}
                     onChange={(e) => this.setBirthday(e.target.value)} />
                 </Form.Group>
                 <Button variant="dark" className="update-button" onClick={() => this.handleUpdate()}>
@@ -236,7 +197,7 @@ export class ProfileView extends React.Component {
                           <Button
                             variant="outline-dark"
                             className="remove-item"
-                            onClick={() => this.removeItem(movie._id)}>
+                            onClick={() => this.removeItem(movie._id).then((user) => handleFavoriteMovie(user))}>
                             Remove Movie
                         </Button>
                         </li>
