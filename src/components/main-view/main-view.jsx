@@ -23,7 +23,8 @@ export class MainView extends React.Component {
 
     this.state = {
       movies: [],
-      user: null
+      user: null,
+      isLoggedIn: false
     };
   }
 
@@ -31,6 +32,9 @@ export class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       const username = localStorage.getItem('user');
+      this.setState({
+        isLoggedIn: true
+      })
       this.getUser(username, accessToken);
       this.getMovies(accessToken);
     }
@@ -51,8 +55,6 @@ export class MainView extends React.Component {
   }
 
   getUser(username, token) {
- 
-
     axios.get(`https://movie-api11.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -61,7 +63,7 @@ export class MainView extends React.Component {
           user: response.data
         });
         console.log('getResponse')
-        console.log(this.Username)
+        console.log(this.user)
       })
       .catch(function (error) {
         console.log(error);
@@ -91,11 +93,12 @@ export class MainView extends React.Component {
 
 
   render() {
-    const { movies, user } = this.state;
+    const { movies, user, isLoggedIn } = this.state;
 
 
     
-    if(movies.length === 0 || !user) return <div>Loading...</div>;
+    // if(movies.length === 0 || !user) return <div>Loading...</div>;
+    if(isLoggedIn && movies.length === 0) return <div>Loading...</div>
 
     return (
       <div>
