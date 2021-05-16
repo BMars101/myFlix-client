@@ -40,11 +40,10 @@ export class ProfileView extends React.Component {
     )
       .then((response) => {
         console.log(response);
-        const data = response.config.data;
+        const data = response.data;
         console.log(data);
-        // const data = response.data;
-        // localStorage.setItem("user", data.Username);
-        //window.open("/users", "_self");
+        localStorage.setItem("user", data.Username);
+        return data;  
       })
       .catch(function (error) {
         console.log(error);
@@ -76,7 +75,7 @@ export class ProfileView extends React.Component {
     localStorage.removeItem("token");
   };
 
-  removeItem(movieID) {
+  removeMovie(movieID) {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
 
@@ -107,9 +106,9 @@ export class ProfileView extends React.Component {
         <Container className="profile-container">
           <CardGroup>
             <Card className="update-user-card">
-              <Card.Header as="h3">Update User Profile</Card.Header>
+              <Card.Header as="h3">Update User Profile {user.Username}</Card.Header>
               <Card.Body>
-                <Form onSubmit={(e) => this.handleUpdate(e)}>
+                <Form onSubmit={(e) => this.handleUpdate(e).then((user) => handleFavoriteMovie(user))}>
                   <Form.Group>
                     <Form.Label className="form-label">Username</Form.Label>
                     <Form.Control
@@ -155,7 +154,7 @@ export class ProfileView extends React.Component {
                 </Form>
                 </Card.Body>
                 <Link to={`/`}>
-                  <Button variant="dark" style={{ margin: "15px" }} className="back-button">
+                  <Button variant="dark" className="back-button">
                     Back
                   </Button>               
               </Link>
@@ -172,9 +171,9 @@ export class ProfileView extends React.Component {
                         <li key={movie._id} className="favorite-item" >
                           {movie.Title}
                           <Button
-                            variant="outline-dark"
-                            className="remove-item"
-                            onClick={() => this.removeItem(movie._id).then((user) => handleFavoriteMovie(user))}>
+                            variant="dark"
+                            className="remove-btn"
+                            onClick={() => this.removeMovie(movie._id).then((user) => handleFavoriteMovie(user))}>
                             Remove Movie
                         </Button>
                         </li>
