@@ -62,8 +62,6 @@ export class MainView extends React.Component {
         this.setState({
           user: response.data
         });
-        console.log('getResponse')
-        console.log(this.user)
       })
       .catch(function (error) {
         console.log(error);
@@ -96,8 +94,6 @@ export class MainView extends React.Component {
     const { movies, user, isLoggedIn } = this.state;
 
 
-    
-    // if(movies.length === 0 || !user) return <div>Loading...</div>;
     if(isLoggedIn && movies.length === 0) return <div>Loading...</div>
 
     return (

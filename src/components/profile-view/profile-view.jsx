@@ -12,47 +12,39 @@ import './profile-view.scss';
 export class ProfileView extends React.Component {
   constructor(props) {
     super(props);
-    console.log('constructorprops');
-
-    this.state = {
-      Username: '',
-      Password: '',
-      Email: '',
-      Birthday: '',
-      FavoriteMovies: [],
-      validated: '',
-      user: null
-    };
   }
 
-
-  // componentDidMount() {
-  //   console.log('here');
-  //   const accessToken = localStorage.getItem("token");
-  //   this.getUser(accessToken);
-  // }
-
-
-
   handleUpdate = (e) => {
+    
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
+    e.preventDefault();
 
-    axios.put(
-      `https://movie-api11.herokuapp.com/users/${username}`, {
-      Username: this.Username,
-      Password: this.Password,
-      Email: this.Email,
-      Birthday: this.Birthday
-    },
+    const newUsername = e.target[0].value;
+    const newPassword = e.target[1].value;
+    const newEmail = e.target[2].value;
+    const newBirthdate = e.target[3].value;
+
+    return axios(
       {
-        headers: { Authorization: `Bearer ${token}` },
+        method: "put",
+        url: `https://movie-api11.herokuapp.com/users/${username}`,
+        data: {
+          Username: newUsername,
+          Password: newPassword,
+          Email: newEmail,
+          Birthday: newBirthdate
+        },
+        headers: { Authorization: `Bearer ${token}` }
       }
     )
       .then((response) => {
-        const data = response.data;
-        localStorage.setItem("user", data.Username);
-        window.open("/users", "_self");
+        console.log(response);
+        const data = response.config.data;
+        console.log(data);
+        // const data = response.data;
+        // localStorage.setItem("user", data.Username);
+        //window.open("/users", "_self");
       })
       .catch(function (error) {
         console.log(error);
@@ -101,31 +93,14 @@ export class ProfileView extends React.Component {
       });
   }
 
-  setUsername(input) {
-    this.Username = input;
-  }
-
-  setPassword(input) {
-    this.Password = input;
-  }
-
-  setEmail(input) {
-    this.Email = input;
-  }
-
-  setBirthday(input) {
-    this.Birthday = input;
-  }
-
   render() {
 
     const { movies, user, handleFavoriteMovie } = this.props;
 
-    // const Username = this.state.Username;
-    // const Email = this.state.Email;
-    // const Birthday = this.state.Birthday;
+    if (!user) return <div>Loading...</div>
+
     const FavoriteMovies = user.FavoriteMovies;
-    console.log(movies);
+    
 
     return (
       <div className="profile-view">
@@ -134,53 +109,55 @@ export class ProfileView extends React.Component {
             <Card className="update-user-card">
               <Card.Header as="h3">Update User Profile</Card.Header>
               <Card.Body>
-                <Form.Group>
-                  <Form.Label className="form-label">Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="username"
-                    value={user.Username}
-                    onChange={(e) => this.setUsername(e.target.value)} />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label className="form-label">Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    value={''}
-                    onChange={(e) => this.setPassword(e.target.value)} />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label className="form-label">
-                    Email Address
-                    </Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    value={user.Email}
-                    onChange={(e) => this.setEmail(e.target.value)} />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label className="form-label">
-                    Birthday
-                    </Form.Label>
-                  <Form.Control
-                    type="date"
-                    name="birthday"
-                    value={user.Birthday}
-                    onChange={(e) => this.setBirthday(e.target.value)} />
-                </Form.Group>
-                <Button variant="dark" className="update-button" onClick={() => this.handleUpdate()}>
-                  Update
+                <Form onSubmit={(e) => this.handleUpdate(e)}>
+                  <Form.Group>
+                    <Form.Label className="form-label">Username</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="username"
+                      defaultValue={user.Username}
+                      />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="form-label">Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      defaultValue={''}                  
+                      />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="form-label">
+                      Email Address
+                      </Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      defaultValue={user.Email} 
+                      />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="form-label">
+                      Birthday
+                      </Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="birthday"
+                      defaultValue={user.Birthday}
+                      />
+                  </Form.Group>
+                  <Button type="submit" variant="dark" className="update-button">
+                    Update
+                    </Button>
+                  <Button variant="danger" className="delete-button" onClick={() => this.handleDeregister()}>
+                    Delete User
                   </Button>
-                <Button variant="danger" className="delete-button" onClick={() => this.handleDeregister()}>
-                  Delete User
-                </Button>
-              </Card.Body>
-              <Link to={`/`}>
-                <Button variant="dark" style={{ margin: "15px" }} className="back-button">
-                  Back
-                </Button>
+                </Form>
+                </Card.Body>
+                <Link to={`/`}>
+                  <Button variant="dark" style={{ margin: "15px" }} className="back-button">
+                    Back
+                  </Button>               
               </Link>
             </Card>
             <Card className="favorites-list">

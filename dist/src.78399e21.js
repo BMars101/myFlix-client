@@ -37586,20 +37586,29 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _this.handleUpdate = function (e) {
       var username = localStorage.getItem("user");
       var token = localStorage.getItem("token");
-
-      _axios.default.put("https://movie-api11.herokuapp.com/users/".concat(username), {
-        Username: _this.Username,
-        Password: _this.Password,
-        Email: _this.Email,
-        Birthday: _this.Birthday
-      }, {
+      e.preventDefault();
+      var newUsername = e.target[0].value;
+      var newPassword = e.target[1].value;
+      var newEmail = e.target[2].value;
+      var newBirthdate = e.target[3].value;
+      return (0, _axios.default)({
+        method: "put",
+        url: "https://movie-api11.herokuapp.com/users/".concat(username),
+        data: {
+          Username: newUsername,
+          Password: newPassword,
+          Email: newEmail,
+          Birthday: newBirthdate
+        },
         headers: {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        var data = response.data;
-        localStorage.setItem("user", data.Username);
-        window.open("/users", "_self");
+        console.log(response);
+        var data = response.config.data;
+        console.log(data); // const data = response.data;
+        // localStorage.setItem("user", data.Username);
+        //window.open("/users", "_self");
       }).catch(function (error) {
         console.log(error);
       });
@@ -37630,23 +37639,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       localStorage.removeItem("token");
     };
 
-    console.log('constructorprops');
-    _this.state = {
-      Username: '',
-      Password: '',
-      Email: '',
-      Birthday: '',
-      FavoriteMovies: [],
-      validated: '',
-      user: null
-    };
     return _this;
-  } // componentDidMount() {
-  //   console.log('here');
-  //   const accessToken = localStorage.getItem("token");
-  //   this.getUser(accessToken);
-  // }
-
+  }
 
   _createClass(ProfileView, [{
     key: "removeItem",
@@ -37664,26 +37658,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "setUsername",
-    value: function setUsername(input) {
-      this.Username = input;
-    }
-  }, {
-    key: "setPassword",
-    value: function setPassword(input) {
-      this.Password = input;
-    }
-  }, {
-    key: "setEmail",
-    value: function setEmail(input) {
-      this.Email = input;
-    }
-  }, {
-    key: "setBirthday",
-    value: function setBirthday(input) {
-      this.Birthday = input;
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -37691,12 +37665,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           movies = _this$props.movies,
           user = _this$props.user,
-          handleFavoriteMovie = _this$props.handleFavoriteMovie; // const Username = this.state.Username;
-      // const Email = this.state.Email;
-      // const Birthday = this.state.Birthday;
-
+          handleFavoriteMovie = _this$props.handleFavoriteMovie;
+      if (!user) return _react.default.createElement("div", null, "Loading...");
       var FavoriteMovies = user.FavoriteMovies;
-      console.log(movies);
       return _react.default.createElement("div", {
         className: "profile-view"
       }, _react.default.createElement(_Container.default, {
@@ -37705,55 +37676,45 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "update-user-card"
       }, _react.default.createElement(_Card.default.Header, {
         as: "h3"
-      }, "Update User Profile"), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
+      }, "Update User Profile"), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Form.default, {
+        onSubmit: function onSubmit(e) {
+          return _this2.handleUpdate(e);
+        }
+      }, _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
         className: "form-label"
       }, "Username"), _react.default.createElement(_Form.default.Control, {
         type: "text",
         name: "username",
-        value: user.Username,
-        onChange: function onChange(e) {
-          return _this2.setUsername(e.target.value);
-        }
+        defaultValue: user.Username
       })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
         className: "form-label"
       }, "Password"), _react.default.createElement(_Form.default.Control, {
         type: "password",
         name: "password",
-        value: '',
-        onChange: function onChange(e) {
-          return _this2.setPassword(e.target.value);
-        }
+        defaultValue: ''
       })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
         className: "form-label"
       }, "Email Address"), _react.default.createElement(_Form.default.Control, {
         type: "email",
         name: "email",
-        value: user.Email,
-        onChange: function onChange(e) {
-          return _this2.setEmail(e.target.value);
-        }
+        defaultValue: user.Email
       })), _react.default.createElement(_Form.default.Group, null, _react.default.createElement(_Form.default.Label, {
         className: "form-label"
       }, "Birthday"), _react.default.createElement(_Form.default.Control, {
         type: "date",
         name: "birthday",
-        value: user.Birthday,
-        onChange: function onChange(e) {
-          return _this2.setBirthday(e.target.value);
-        }
+        defaultValue: user.Birthday
       })), _react.default.createElement(_Button.default, {
+        type: "submit",
         variant: "dark",
-        className: "update-button",
-        onClick: function onClick() {
-          return _this2.handleUpdate();
-        }
+        className: "update-button"
       }, "Update"), _react.default.createElement(_Button.default, {
         variant: "danger",
         className: "delete-button",
         onClick: function onClick() {
           return _this2.handleDeregister();
         }
-      }, "Delete User")), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Delete User"))), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         variant: "dark",
@@ -40137,9 +40098,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         _this3.setState({
           user: response.data
         });
-
-        console.log('getResponse');
-        console.log(_this3.user);
       }).catch(function (error) {
         console.log(error);
       });
@@ -40174,8 +40132,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
-          isLoggedIn = _this$state.isLoggedIn; // if(movies.length === 0 || !user) return <div>Loading...</div>;
-
+          isLoggedIn = _this$state.isLoggedIn;
       if (isLoggedIn && movies.length === 0) return _react.default.createElement("div", null, "Loading...");
       return _react.default.createElement("div", null, _react.default.createElement(_navView.NavView, null), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
@@ -40369,7 +40326,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62678" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55499" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
