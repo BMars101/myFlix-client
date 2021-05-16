@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import { RegistrationView } from '../registration-view/registration-view';
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -27,7 +26,7 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log('no such user')
+        alert('Username or password does not exist')
         formValidation();
       });
   };
