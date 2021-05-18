@@ -29718,7 +29718,19 @@ h3 {
   }
 }
 .back-button {
-  padding: 15px;
+  margin-left: 20px;
+}
+
+.remove-btn {
+  margin-left: 15px;
+}
+
+.delete-button {
+  margin-left: 15px;
+}
+
+.favorite-item {
+  margin-top: 5px;
 }
 @charset "UTF-8";
 /*!
@@ -69339,7 +69351,8 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.form_container {
+.form-container {
+  width: 100%;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -69347,28 +69360,14 @@ h3 {
   padding-top: 20px;
   font-weight: bold;
   min-height: 90vh;
+  margin-left: 20px;
 }
 
-.form_body {
+.user-register {
   padding-top: 20px;
-  margin-left: 35px;
 }
 
-.form-item {
-  align-items: center;
-  display: block;
-  width: 250px;
-  font-size: 20px;
-}
-
-.input-box {
-  display: block;
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-}
-
-.button {
+.register-button {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 @charset "UTF-8";
@@ -79269,8 +79268,7 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.form-container {
-  width: 100%;
+.form_container {
   align-items: center;
   justify-content: center;
   display: flex;
@@ -79278,15 +79276,32 @@ h3 {
   padding-top: 20px;
   font-weight: bold;
   min-height: 90vh;
-  margin-left: 20px;
 }
 
-.user-register {
+.form_body {
   padding-top: 20px;
+  margin-left: 35px;
 }
 
-.register-button {
+.form-item {
+  align-items: center;
+  display: block;
+  width: 250px;
+  font-size: 20px;
+}
+
+.input-box {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+}
+
+.button {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.movie-button {
+  margin-top: 5px;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */
