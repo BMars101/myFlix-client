@@ -4,8 +4,6 @@ import Button from 'react-bootstrap/Button';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
-import { MainView } from '../main-view/main-view';
-import { MovieView } from '../movie-view/movie-view';
 import './genre-view.scss';
 
 export class GenreView extends React.Component {
@@ -19,8 +17,6 @@ export class GenreView extends React.Component {
 
     const { genre, movies } = this.props;
 
-    //if (!movie) return null;
-
     return (
       <CardGroup>
         <Card style={{ width: '18rem' }} className="genre-view">
@@ -32,7 +28,7 @@ export class GenreView extends React.Component {
             <Card.Text>{genre.Genre.Description}</Card.Text>
           </Card.Body>
           <Link to={`/`}>
-            <Button variant="dark" className="back-button">Back</Button>
+            <Button variant="dark" className="back-button">Back to Main Page</Button>
           </Link>
         </Card>
         <Card style={{ width: '18rem' }} className="movie-genre">
