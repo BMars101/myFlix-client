@@ -1,10 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import './main-view.scss'
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -118,7 +114,6 @@ export class MainView extends React.Component {
               render={({ match }) =>
                 <MovieView
                   movie={movies.find(m => m._id === match.params.movieId)}
-                  //movies={movies}
                   user={user}
                   handleFavoriteMovie={(user) => {this.setState({user: user})}}
                 />
