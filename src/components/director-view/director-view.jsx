@@ -2,9 +2,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { MainView } from '../main-view/main-view';
-import { MovieView } from '../movie-view/movie-view';
 
 export class DirectorView extends React.Component {
   constructor() {
@@ -47,7 +46,7 @@ export class DirectorView extends React.Component {
               {director.Director.Death}
             </Card.Text>
             <Link to={`/`}>
-              <Button variant="dark" className="back-button">Back</Button>
+              <Button variant="dark" className="back-button">Back to Main Page</Button>
             </Link>
           </Card.Body>
         </Card>
@@ -70,3 +69,15 @@ export class DirectorView extends React.Component {
     )
   }
 };
+
+DirectorView.propTypes = {
+  director: PropTypes.shape({
+    Name: PropTypes.string,
+    Bio: PropTypes.string,
+    Birth: PropTypes.string,
+    Death: PropTypes.string,
+  }),
+  movies: PropTypes.shape({
+    Title: PropTypes.string,
+  })
+}
