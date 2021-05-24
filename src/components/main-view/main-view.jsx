@@ -1,11 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CardColumns from 'react-bootstrap/CardColumns';
 import './main-view.scss'
+import MoviesList from '../movie-list/movie-list';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { setMovies } from '../../actions/actions';
 import { NavView } from '../nav-view/nav-view';
-import { MovieCard } from '../movie-card/movie-card';
+//import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -13,12 +16,11 @@ import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      movies: [],
       user: null,
       isLoggedIn: false
     };
@@ -41,9 +43,10 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this.setState({
-          movies: response.data
-        });
+        this.props.setMovies(response.data);
+        // this.setState({
+        //   movies: response.data
+        // });
       })
       .catch(function (error) {
         console.log(error);
@@ -87,7 +90,8 @@ export class MainView extends React.Component {
 
 
   render() {
-    const { movies, user, isLoggedIn } = this.state;
+    const { movies } = this.props;
+    const { user, isLoggedIn } = this.state;
 
 
     if(isLoggedIn && movies.length === 0) return <div>Loading...</div>
@@ -104,8 +108,7 @@ export class MainView extends React.Component {
                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />);
                 return (
                   <CardColumns>
-                    {movies.map(m =>
-                      <MovieCard key={m._id} movie={m} />)}
+                    <MoviesList movies={movies}/>
                   </CardColumns>
                 )
               }} />
@@ -162,8 +165,13 @@ export class MainView extends React.Component {
   }
 }
 
-MainView.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string
-  })
+let mapStateToProps = state => {
+  return { movies: state.movies }
 }
+
+export default connect(mapStateToProps, { setMovies })(MainView);
+// MainView.propTypes = {
+//   user: PropTypes.shape({
+//     username: PropTypes.string
+//   })
+// }
