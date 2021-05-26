@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import Container from 'react-bootstrap/Container';
+import Container from 'react-bootstrap/Container';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import moviesApp from './reducers/reducers';
@@ -16,15 +16,14 @@ class MyFlixApplication extends React.Component {
   render() {
     return (
       <Provider store={store}> 
-        <MainView />
+          <MainView />       
       </Provider>
       
     );
   }
 }
-//finds the root of app
+
 const container = document.getElementsByClassName('app-container')[0];
 
-//tells React to render app on the root DOM element
 ReactDOM.render(React.createElement(MyFlixApplication), container);
 

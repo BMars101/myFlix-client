@@ -95,3 +95,4 @@ export function LoginView(props) {
 LoginView.proptypes = {
   onLoggedIn: PropTypes.func.isRequired
 }
+
