@@ -6,7 +6,7 @@ import CardColumns from 'react-bootstrap/CardColumns';
 import './main-view.scss';
 import MoviesList from '../movie-list/movie-list';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 import { NavView } from '../nav-view/nav-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -68,9 +68,7 @@ class MainView extends React.Component {
 
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user
-    });
+    this.props.setUser(authData.user);
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
@@ -89,19 +87,22 @@ class MainView extends React.Component {
 
 
   render() {
-    const { movies } = this.props;
-    const { user, isLoggedIn } = this.state;
+    const { user, movies } = this.props;
+    const { isLoggedIn } = this.state;
 
 
-    if(isLoggedIn && movies.length === 0) return <div>Loading...</div>
-
+    if(isLoggedIn && movies.length === 0)<div>Loading...</div> 
+    
+    console.log("Main", !user)
     return (
       <div>
         <NavView />
+        Hello World
         <Router>
           <div className="main-view">
             <Route exact path="/"
               render={() => {
+                console.log("Render /")
                 if (!user)
                   return (
                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />);
@@ -165,10 +166,10 @@ class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies, user: state.user }
 }
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
 
 MainView.propTypes = {
   movies: PropTypes.arrayOf(

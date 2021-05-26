@@ -9,7 +9,8 @@ import { devToolsEnhancer } from 'redux-devtools-extension';
 import './index.scss';
 import MainView from './components/main-view/main-view';
 
-const store = createStore(moviesApp, devToolsEnhancer());
+const store = createStore(moviesApp);
+console.log(store.getState());
 
 
 class MyFlixApplication extends React.Component {

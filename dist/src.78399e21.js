@@ -33655,7 +33655,7 @@ function movies() {
   }
 }
 
-function setUser() {
+function user() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -33671,7 +33671,7 @@ function setUser() {
 var moviesApp = (0, _redux.combineReducers)({
   visibilityFilter: visibilityFilter,
   movies: movies,
-  setUser: setUser
+  user: user
 });
 var _default = moviesApp;
 exports.default = _default;
@@ -35589,74 +35589,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/react-bootstrap/esm/Col.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _ThemeProvider = require("./ThemeProvider");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
-
-var Col = _react.default.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-function (_ref, ref) {
-  var bsPrefix = _ref.bsPrefix,
-      className = _ref.className,
-      _ref$as = _ref.as,
-      Component = _ref$as === void 0 ? 'div' : _ref$as,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "className", "as"]);
-  var prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'col');
-  var spans = [];
-  var classes = [];
-  DEVICE_SIZES.forEach(function (brkPoint) {
-    var propValue = props[brkPoint];
-    delete props[brkPoint];
-    var span;
-    var offset;
-    var order;
-
-    if (typeof propValue === 'object' && propValue != null) {
-      var _propValue$span = propValue.span;
-      span = _propValue$span === void 0 ? true : _propValue$span;
-      offset = propValue.offset;
-      order = propValue.order;
-    } else {
-      span = propValue;
-    }
-
-    var infix = brkPoint !== 'xs' ? "-" + brkPoint : '';
-    if (span) spans.push(span === true ? "" + prefix + infix : "" + prefix + infix + "-" + span);
-    if (order != null) classes.push("order" + infix + "-" + order);
-    if (offset != null) classes.push("offset" + infix + "-" + offset);
-  });
-
-  if (!spans.length) {
-    spans.push(prefix); // plain 'col'
-  }
-
-  return /*#__PURE__*/_react.default.createElement(Component, (0, _extends2.default)({}, props, {
-    ref: ref,
-    className: _classnames.default.apply(void 0, [className].concat(spans, classes))
-  }));
-});
-
-Col.displayName = 'Col';
-var _default = Col;
-exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js"}],"../node_modules/react-bootstrap/esm/createChainedFunction.js":[function(require,module,exports) {
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/react-bootstrap/esm/createChainedFunction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36052,7 +35985,74 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = (0, _createWithBsPrefix.default)('card-group');
 
 exports.default = _default;
-},{"./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
+},{"./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../node_modules/react-bootstrap/esm/Col.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _ThemeProvider = require("./ThemeProvider");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DEVICE_SIZES = ['xl', 'lg', 'md', 'sm', 'xs'];
+
+var Col = _react.default.forwardRef( // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      className = _ref.className,
+      _ref$as = _ref.as,
+      Component = _ref$as === void 0 ? 'div' : _ref$as,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "className", "as"]);
+  var prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'col');
+  var spans = [];
+  var classes = [];
+  DEVICE_SIZES.forEach(function (brkPoint) {
+    var propValue = props[brkPoint];
+    delete props[brkPoint];
+    var span;
+    var offset;
+    var order;
+
+    if (typeof propValue === 'object' && propValue != null) {
+      var _propValue$span = propValue.span;
+      span = _propValue$span === void 0 ? true : _propValue$span;
+      offset = propValue.offset;
+      order = propValue.order;
+    } else {
+      span = propValue;
+    }
+
+    var infix = brkPoint !== 'xs' ? "-" + brkPoint : '';
+    if (span) spans.push(span === true ? "" + prefix + infix : "" + prefix + infix + "-" + span);
+    if (order != null) classes.push("order" + infix + "-" + order);
+    if (offset != null) classes.push("offset" + infix + "-" + offset);
+  });
+
+  if (!spans.length) {
+    spans.push(prefix); // plain 'col'
+  }
+
+  return /*#__PURE__*/_react.default.createElement(Component, (0, _extends2.default)({}, props, {
+    ref: ref,
+    className: _classnames.default.apply(void 0, [className].concat(spans, classes))
+  }));
+});
+
+Col.displayName = 'Col';
+var _default = Col;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js"}],"../node_modules/react-bootstrap/esm/Row.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38341,10 +38341,6 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
-
-var _CardColumns = _interopRequireDefault(require("react-bootstrap/CardColumns"));
-
 var _reactRedux = _interopRequireWildcard(require("react-redux"));
 
 var _movieCard = require("../movie-card/movie-card");
@@ -38388,7 +38384,7 @@ function MoviesList(props) {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/CardColumns":"../node_modules/react-bootstrap/esm/CardColumns.js","react-redux":"../node_modules/react-redux/es/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41227,6 +41223,7 @@ function LoginView(props) {
     return isValid;
   };
 
+  console.log("I'm in login");
   return _react.default.createElement(_Container.default, {
     className: "form-container"
   }, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
@@ -41800,7 +41797,7 @@ var _CardColumns = _interopRequireDefault(require("react-bootstrap/CardColumns")
 
 require("./main-view.scss");
 
-var _movieList = require("../movie-list/movie-list");
+var _movieList = _interopRequireDefault(require("../movie-list/movie-list"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -41916,9 +41913,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
       console.log(authData);
-      this.setState({
-        user: authData.user
-      });
+      this.props.setUser(authData.user);
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
@@ -41939,23 +41934,25 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      var movies = this.props.movies;
-      var _this$state = this.state,
-          user = _this$state.user,
-          isLoggedIn = _this$state.isLoggedIn;
-      if (isLoggedIn && movies.length === 0) return _react.default.createElement("div", null, "Loading...");
-      return _react.default.createElement("div", null, _react.default.createElement(_navView.NavView, null), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      var _this$props = this.props,
+          user = _this$props.user,
+          movies = _this$props.movies;
+      var isLoggedIn = this.state.isLoggedIn;
+      if (isLoggedIn && movies.length === 0) _react.default.createElement("div", null, "Loading...");
+      console.log("Main", !user);
+      return _react.default.createElement("div", null, _react.default.createElement(_navView.NavView, null), "Hello World", _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
-          if (user === null) return _react.default.createElement(_loginView.LoginView, {
+          console.log("Render /");
+          if (!user) return _react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(user) {
               return _this4.onLoggedIn(user);
             }
           });
-          return _react.default.createElement(_CardColumns.default, null, _react.default.createElement(_movieList.MoviesList, {
+          return _react.default.createElement(_CardColumns.default, null, _react.default.createElement(_movieList.default, {
             movies: movies
           }));
         }
@@ -42038,12 +42035,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    movies: state.movies
+    movies: state.movies,
+    user: state.user
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setMovies: _actions.setMovies
+  setMovies: _actions.setMovies,
+  setUser: _actions.setUser
 })(MainView);
 
 exports.default = _default;
@@ -42101,7 +42100,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var store = (0, _redux.createStore)(_reducers.default, (0, _reduxDevtoolsExtension.devToolsEnhancer)());
+var store = (0, _redux.createStore)(_reducers.default);
+console.log(store.getState());
 
 var MyFlixApplication = /*#__PURE__*/function (_React$Component) {
   _inherits(MyFlixApplication, _React$Component);
@@ -42157,7 +42157,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51653" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49404" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

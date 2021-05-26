@@ -6,7 +6,6 @@
     "axios": "^0.21.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "bootstrap": "^4.5.3",
-    "caniuse-lite": "^1.0.30001228",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
