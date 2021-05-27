@@ -5,6 +5,8 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setMovies, setUser } from '../../actions/actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './profile-view.scss';
@@ -39,9 +41,7 @@ export class ProfileView extends React.Component {
       }
     )
       .then((response) => {
-        console.log(response);
         const data = response.data;
-        console.log(data);
         localStorage.setItem("user", data.Username);
         return data;  
       })
@@ -154,7 +154,7 @@ export class ProfileView extends React.Component {
                 </Form>
                 </Card.Body>
                 <Link to={`/`}>
-                  <Button variant="dark" className="back-button">
+                  <Button variant="dark" className="back-btn">
                     Back
                   </Button>               
               </Link>
@@ -189,6 +189,12 @@ export class ProfileView extends React.Component {
     )
   }
 };
+
+let mapStateToProps = state => {
+  return { movies: state.movies, user: state.user }
+}
+
+export default connect(mapStateToProps, { setMovies, setUser })(ProfileView);
 
 ProfileView.propTypes = {
   user: PropTypes.shape({
