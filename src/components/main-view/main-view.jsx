@@ -25,7 +25,6 @@ class MainView extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state);
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       const username = localStorage.getItem('user');
@@ -87,7 +86,6 @@ class MainView extends React.Component {
 
     if(isLoggedIn && (!user || movies.length === 0)) return <div>Loading...</div> 
     
-    console.log("Main", !user)
     return (
       <div>
         <NavView />
