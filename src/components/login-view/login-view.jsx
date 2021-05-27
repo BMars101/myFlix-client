@@ -50,7 +50,6 @@ export function LoginView(props) {
     setPasswordErr(passwordErr);
     return isValid;
   };
-  console.log("I'm in login")
 
   return (
     <Container className="form-container">

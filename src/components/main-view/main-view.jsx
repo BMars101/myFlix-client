@@ -8,7 +8,6 @@ import MoviesList from '../movie-list/movie-list';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { setMovies, setUser } from '../../actions/actions';
 import { NavView } from '../nav-view/nav-view';
-import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -21,7 +20,6 @@ class MainView extends React.Component {
     super();
 
     this.state = {
-      // user: null,
       isLoggedIn: false
     };
   }
@@ -57,9 +55,6 @@ class MainView extends React.Component {
     })
       .then(response => {
         this.props.setUser(response.data);
-        // this.setState({
-        //   user: response.data
-        // });
       })
       .catch(function (error) {
         console.log(error);
@@ -68,10 +63,9 @@ class MainView extends React.Component {
 
   onLoggedIn(authData) {
     console.log(authData);
-    this.props.setUser(authData.user);
-
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
+    this.props.setUser(authData.user);
     this.getMovies(authData.token);
   }
 
@@ -91,18 +85,16 @@ class MainView extends React.Component {
     const { isLoggedIn } = this.state;
 
 
-    if(isLoggedIn && movies.length === 0)<div>Loading...</div> 
+    if(isLoggedIn && (!user || movies.length === 0)) return <div>Loading...</div> 
     
     console.log("Main", !user)
     return (
       <div>
         <NavView />
-        Hello World
         <Router>
           <div className="main-view">
             <Route exact path="/"
               render={() => {
-                console.log("Render /")
                 if (!user)
                   return (
                     <LoginView onLoggedIn={user => this.onLoggedIn(user)} />);
@@ -118,7 +110,7 @@ class MainView extends React.Component {
                 <MovieView
                   movie={movies.find(m => m._id === match.params.movieId)}
                   user={user}
-                  handleFavoriteMovie={(user) => {this.setState({user: user})}}
+                  handleFavoriteMovie={(user) => {this.props.setUser(user)}}
                 />
               }
             />
@@ -128,7 +120,7 @@ class MainView extends React.Component {
                 <ProfileView
                   movies={movies}
                   user={user}
-                  handleFavoriteMovie={(user) => {this.setState({user: user})}}
+                  handleFavoriteMovie={(user) => {this.props.setUser(user)}}
                 />
               }
             />
