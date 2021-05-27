@@ -77,7 +77,11 @@ DirectorView.propTypes = {
     Birth: PropTypes.string,
     Death: PropTypes.string,
   }),
-  movies: PropTypes.shape({
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
     Title: PropTypes.string,
+    Description: PropTypes.string,
+    ImagePath: PropTypes.string 
   })
+  )
 }
