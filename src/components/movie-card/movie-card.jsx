@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardGroup';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import './movie-card.scss';
 
