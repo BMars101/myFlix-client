@@ -57,10 +57,12 @@ GenreView.propTypes = {
     Name: PropTypes.string,
     Description: PropTypes.string,
   }),
-  movies: PropTypes.shape({
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
     Title: PropTypes.string,
     Description: PropTypes.string,
     ImagePath: PropTypes.string
   })
+  )
 };
 
