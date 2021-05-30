@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { setUser } from '../../actions/actions';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -91,6 +93,12 @@ export function LoginView(props) {
     </Container>
   );
 }
+
+let mapStateToProps = state => {
+  return { user: state.user }
+}
+
+export default connect(mapStateToProps, { setUser })(LoginView)
 
 LoginView.proptypes = {
   onLoggedIn: PropTypes.func.isRequired
