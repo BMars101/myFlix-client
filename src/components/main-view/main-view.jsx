@@ -70,9 +70,10 @@ class MainView extends React.Component {
 
   onRegister(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user
-    });
+    this.props.setUser(authData.user);
+    // this.setState({
+    //   user: authData.user
+    // });
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
