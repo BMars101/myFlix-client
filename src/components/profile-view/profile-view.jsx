@@ -42,6 +42,9 @@ export class ProfileView extends React.Component {
     )
       .then((response) => {
         const data = response.data;
+        setUser(data);
+        console.log(data);
+        // this.props.setUser(data);
         localStorage.setItem("user", data.Username);
         return data;  
       })
@@ -99,6 +102,7 @@ export class ProfileView extends React.Component {
     if (!user) return <div>Loading...</div>
 
     const FavoriteMovies = user.FavoriteMovies;
+    console.log(user, FavoriteMovies);
     
 
     return (
