@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { setUser } from '../../actions/actions';
+import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
@@ -8,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './registration-view.scss';
+
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
@@ -23,8 +26,6 @@ export function RegistrationView(props) {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    //const form = e.currentTarget;
-    //console.log(form);
     const isValid = formValidation();
     axios.post(`https://movie-api11.herokuapp.com/users`, {
       Username: username,
@@ -34,6 +35,8 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
+        this.props.setUser(data);
+        console.log(data);
         window.open('/', '_self');
       })
       .catch(e => {
@@ -151,6 +154,12 @@ export function RegistrationView(props) {
     </Container >
   );
 }
+
+let mapStateToProps = state => {
+  return { user: state.user }
+}
+
+export default connect(mapStateToProps, { setUser })(RegistrationView)
 
 RegistrationView.proptypes = {
   register: PropTypes.shape({
