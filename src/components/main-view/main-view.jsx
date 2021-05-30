@@ -10,10 +10,10 @@ import { setMovies, setUser } from '../../actions/actions';
 import { NavView } from '../nav-view/nav-view';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
-import { RegistrationView } from '../registration-view/registration-view';
+import RegistrationView from '../registration-view/registration-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
-import { ProfileView } from '../profile-view/profile-view';
+import ProfileView from '../profile-view/profile-view';
 
 class MainView extends React.Component {
   constructor() {
