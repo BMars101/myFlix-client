@@ -42,14 +42,13 @@ export class ProfileView extends React.Component {
     )
       .then((response) => {
         const data = response.data;
-        setUser(data);
-        console.log(data);
-        // this.props.setUser(data);
+        this.props.setUser(data);
         localStorage.setItem("user", data.Username);
         return data;  
       })
       .catch(function (error) {
         console.log(error);
+        alert('Error updating user info. Please try again.');
       });
   };
 
@@ -112,7 +111,7 @@ export class ProfileView extends React.Component {
             <Card className="update-user-card">
               <Card.Header as="h3">Update User Profile {user.Username}</Card.Header>
               <Card.Body>
-                <Form onSubmit={(e) => this.handleUpdate(e).then((user) => handleFavoriteMovie(user))}>
+                <Form onSubmit={(e) => this.handleUpdate(e)}>
                   <Form.Group>
                     <Form.Label className="form-label">Username</Form.Label>
                     <Form.Control
