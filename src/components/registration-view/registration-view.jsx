@@ -35,12 +35,13 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
-        this.props.setUser(data);
+        props.setUser(data);
         console.log(data);
         window.open('/', '_self');
       })
       .catch(e => {
-        console.log('error registering the user');
+        console.log('error registering the user', e);
+        alert('error registering user. Please try again');
         formValidation();
       });
   };
