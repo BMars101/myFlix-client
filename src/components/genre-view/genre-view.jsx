@@ -37,7 +37,7 @@ export class GenreView extends React.Component {
             {movies.map(movie => {
               if (movie.Genre.Name === genre.Genre.Name) {
                 return (<div key={movie._id}>
-                  <Link to={`/movie/${movie._id}`}>
+                  <Link to={`/movies/${movie._id}`}>
                     <Button variant="light" className="movie-button">{movie.Title}</Button>
                   </Link>
                 </div>
