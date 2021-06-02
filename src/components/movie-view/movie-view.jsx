@@ -1,49 +1,86 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      FavoriteMovies: []
+    };
+    console.log(this.state);
   }
 
+  handleSubmit = (username, movieID) => {
+  
+    const token = localStorage.getItem("token");
+
+     return axios(
+      {
+        method: "post",
+        url: `https://movie-api11.herokuapp.com/users/${username}/movies/${movieID}`,
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+      .then(response => {
+        alert('Movie added to list');
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+
+
   render() {
-    const { movie, onClick } = this.props;
+    const { movie, user, handleFavoriteMovie } = this.props;
 
     if (!movie) return null;
+
 
     return (
       <div className="movie-view">
         <img className="movie-poster" src={movie.ImagePath} />
         <div className="movie-title">
-          <span className="label">Title: </span>
+          <span className="label"><strong>Title: </strong></span>
           <span className="value">{movie.Title}</span>
         </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
+        <div className="movie-text">
+          <span className="label"><strong>Description: </strong></span>
           <span className="value">{movie.Description}</span>
         </div>
-        <div className="movie-genre">
-          <span className="label">Genre: </span>
+        <div className="movie-text">
+          <span className="label"><strong>Genre: </strong> </span>
           <span className="value">{movie.Genre.Name}</span>
           <Link to={`/genres/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
         </div>
-        <div className="movie-director">
-          <span className="label">Director: </span>
+        <div className="movie-text">
+          <span className="label"><strong>Director: </strong>: </span>
           <span className="value">{movie.Director.Name}</span>
           <Link to={`/directors/${movie.Director.Name}`}>
             <Button variant="link">Director</Button>
           </Link>
         </div>
         <div>
-          <Button onClick={() => onClick()}>Back</Button>
+          <Button variant="dark" className="favorite-button" onClick=
+            {(e) => this.handleSubmit(user.Username, movie._id).then((user) => handleFavoriteMovie(user))}>
+            Add to Favorites
+          </Button>
         </div>
-      </div>
+        <br />
+        <div>
+          <Link to={'/'}>
+            <Button variant="dark" className="back-button">Back</Button>
+          </Link>
+        </div>
+      </div >
 
     );
   }
@@ -55,6 +92,9 @@ MovieView.propTypes = {
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+  }),
+  user: PropTypes.shape({
+    username: PropTypes.string,
+
+  })
 };

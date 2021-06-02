@@ -1,15 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
 
-.card_columns {
+.movie-card {
   display: grid;
   border-radius: 5px;
   padding: 20px;
-  grid-column-start: 1;
-  grid-column-end: 3;
+  
 }
 
-.movie_container {
-  display: grid;
-  grid-template-columns: 1fr 1fr  1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-}
+
+
