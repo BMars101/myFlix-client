@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { setMovies, setUser } from '../../actions/actions';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './profile-view.scss';
 

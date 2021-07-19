@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { setUser } from '../../actions/actions';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { setUser } from '../../actions/actions';
 import './login-view.scss';
 
 export function LoginView(props) {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { setUser } from '../../actions/actions';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +9,6 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import './registration-view.scss';
 
 
